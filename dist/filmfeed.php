@@ -1,8 +1,5 @@
 <?php
-
-$username = 'dekadans';
-$url = 'https://letterboxd.com/'. $username .'/rss/';
-
+$url = 'https://letterboxd.com/dekadans/rss/';
 $rss = file_get_contents($url);
 
 header('Content-type: application/xml');

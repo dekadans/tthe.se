@@ -1,13 +1,7 @@
-import Parser from 'rss-parser';
-
-let parser = new Parser({
-    customFields : {
-        item : ['letterboxd:watchedDate']
-    }
-});
+import letterboxd from './letterboxd';
 
 (async () => {
-    let feed = await parser.parseURL('filmfeed.php');
-    let latestFilm = feed.items[0];
+    let l = letterboxd('filmfeed.php');
+    let latestFilm = await l.latest();
     console.log(latestFilm);
 })();
