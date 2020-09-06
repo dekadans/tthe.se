@@ -1,6 +1,6 @@
 import Parser from 'rss-parser';
 
-let letterboxd = (url) => {
+export default (url) => {
     let parser = new Parser({
         customFields : {
             item : [
@@ -28,7 +28,8 @@ let letterboxd = (url) => {
             year : item['letterboxd:filmYear'],
             watched : item['letterboxd:watchedDate'],
             rating : item['letterboxd:memberRating'],
-            poster : parsePosterUrl(item.content)
+            poster : parsePosterUrl(item.content),
+            link : item.link
         }
     }
 
@@ -44,5 +45,3 @@ let letterboxd = (url) => {
         latest : latest
     };
 };
-
-export default letterboxd;

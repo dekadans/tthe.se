@@ -6,7 +6,7 @@
         <title>Tomas Thelander</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        <script src="main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
         <!-- https://coolors.co/ffffff-809bce-02c39a-e4572e-13070c -->
@@ -68,8 +68,8 @@
                                                 <div class="tags">
                                                     <span class="tag is-white">Laravel</span>
                                                     <span class="tag is-white">Symfony</span>
-                                                    <span class="tag is-white">React</span>
                                                     <span class="tag is-white">Vue</span>
+                                                    <span class="tag is-white">React</span>
                                                     <span class="tag is-white">OpenAPI</span>
                                                     <span class="tag is-white">REST</span>
                                                     <span class="tag is-white">SOAP</span>
@@ -162,10 +162,24 @@
             </div>
             <p>&nbsp;</p>
         </section>
+
+        <div class="container mb-6 mt-6">
+            <div class="columns">
+                <div class="column is-6 is-offset-3">
+                    <h1 class="has-text-centered is-size-4 has-text-weight-semibold mb-2">Latest film seen</h1>
+                    <div id="film" class="box">
+                        <film v-bind:film="film"></film>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>tthe.se | © 2020 Tomas Thelander</p>
             </div>
         </footer>
+
+        <script src="main.js"></script>
     </body>
 </html>
