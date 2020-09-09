@@ -27,6 +27,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "rss-parser": "^3.9.0"
+    "rss-parser": "^3.9.0",
+    "vue": "^2.6.12"
   }
 }

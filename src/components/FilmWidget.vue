@@ -8,7 +8,7 @@
             <p>
                 <strong>{{film.title}}</strong> <small>{{film.year}}</small>
             </p>
-            <Rating :rating="film.rating"></Rating>
+            <StarRating :rating="film.rating"></StarRating>
             <p class="mt-4">
                 <small>{{film.watched}} - via <a :href="film.link" target="_blank">Letterboxd</a></small>
             </p>
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-    import Rating from './Rating.vue'
+    import StarRating from './StarRating.vue'
 
     export default {
         props : ['film'],
         components : {
-            Rating
+            StarRating
         }
     }
 </script>
