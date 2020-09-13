@@ -6,6 +6,14 @@
         <title>Tomas Thelander</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <style>
+            #hero-links a {
+                color: #4a4a4a;
+            }
+            #scroll-down {
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <!-- https://coolors.co/ffffff-809bce-02c39a-e4572e-13070c -->
@@ -14,9 +22,17 @@
                 <div class="container has-text-centered">
                     <h1 class="title is-1">Tomas Thelander</h1>
                     <h2 class="subtitle has-text-primary">Software Developer</h2>
-                    <p class="is-size-4">
-                        <i class="fab fa-linkedin-in"></i>&nbsp;&nbsp;&nbsp;
-                        <i class="fab fa-github"></i>
+                    <p id="hero-links">
+                        <a href="https://www.linkedin.com/in/tomasthelander/" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-lg fa-linkedin-in"></i>
+                            </span>
+                        </a>
+                        <a href="https://github.com/dekadans" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-lg fa-github"></i>
+                            </span>
+                        </a>
                     </p>
                 </div>
             </div>
@@ -24,7 +40,7 @@
                 <div class="container">
                     <div class="columns">
                         <div class="column has-text-centered">
-                            <span class="icon is-medium">
+                            <span id="scroll-down" class="icon is-medium">
                                 <i class="fas fa-chevron-down fa-2x"></i>
                             </span>
                         </div>
@@ -33,7 +49,7 @@
             </div>
         </section>
 
-        <div class="container mb-6 mt-6">
+        <div id="cv" class="container mb-6 mt-6">
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
                     <div class="tile is-ancestor">
@@ -157,10 +173,18 @@
 
         <section>
             <div class="buttons is-centered">
-                <button class="button is-primary is-large">Contact</button>
+                <a href="mailto:tomas@tthe.se" class="button is-primary is-large">Contact</a>
             </div>
             <p>&nbsp;</p>
         </section>
+
+        <div class="container">
+            <div class="columns">
+                <div class="column is-two-thirds is-offset-2">
+                    <hr>
+                </div>
+            </div>
+        </div>
 
         <div class="container mb-6 mt-6">
             <div class="columns">

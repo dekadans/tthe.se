@@ -21,3 +21,7 @@ new Vue({
         this.film = await letterboxd('filmfeed.php').latest();
     }
 })
+
+document.querySelector('#scroll-down').addEventListener('click', () => {
+    document.querySelector('#cv').scrollIntoView({behavior:'smooth'});
+});
