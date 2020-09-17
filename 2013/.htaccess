@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^tthe.se [NC]
+RewriteRule ^(.*)$ http://www.tthe.se/$1 [L,R=301,NC]
