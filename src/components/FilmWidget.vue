@@ -2,7 +2,7 @@
     <p v-if="!film">Loading...</p>
     <article v-else class="media">
         <figure class="media-left">
-            <img :src="film.poster" style="max-width: 150px">
+            <img alt="Film poster" :src="film.poster">
         </figure>
         <div class="media-content">
             <p>
@@ -26,3 +26,15 @@
         }
     }
 </script>
+
+<style scoped>
+    img {
+        max-width: 150px;
+    }
+
+    @media(max-width: 576px) {
+        img {
+            max-width: 75px;
+        }
+    }
+</style>
