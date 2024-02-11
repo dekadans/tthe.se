@@ -4,12 +4,28 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tomas Thelander</title>
+        <meta name="description" content="Integration Specialist and Software Developer based in Gothenburg, Sweden">
+        <meta property="og:title" content="Tomas Thelander">
+        <meta property="og:description" content="Integration Specialist and Software Developer based in Gothenburg, Sweden">
+        <meta property="og:image" content="/images/tthe.jpg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <style>
-            #hero-links a {
+            #cv-links a {
                 color: #4a4a4a;
             }
+            #mail-container {
+                font-size: 0.7rem;
+                font-family: monospace;
+                margin-top: 0.5rem;
+            }
+
+            .mail-component-b {
+                display: none;
+            }
+
             #scroll-down {
                 cursor: pointer;
             }
@@ -41,19 +57,7 @@
             <div class="hero-body">
                 <div class="container has-text-centered">
                     <h1 class="title is-1">Tomas Thelander</h1>
-                    <h2 class="subtitle has-text-primary">Software Developer</h2>
-                    <p id="hero-links">
-                        <a href="https://www.linkedin.com/in/tomasthelander/" target="_blank">
-                            <span class="icon is-medium">
-                                <i class="fab fa-lg fa-linkedin-in"></i>
-                            </span>
-                        </a>
-                        <a href="https://github.com/dekadans" target="_blank">
-                            <span class="icon is-medium">
-                                <i class="fab fa-lg fa-github"></i>
-                            </span>
-                        </a>
-                    </p>
+                    <h2 class="subtitle has-text-primary">APIs, Integration &amp; Software Development</h2>
                 </div>
             </div>
             <div class="hero-foot">
@@ -79,28 +83,19 @@
                                         <div class="columns cv-entry">
                                             <div class="column cv-desc">
                                                 <p>
-                                                <span class="has-text-weight-semibold">
-                                                    Integration Specialist<br>
-                                                </span>
-                                                    <span class="has-text-weight-light">
-                                                Gothenburg<br>
-                                                <small>2023 - present</small>
-                                                </span>
+                                                    <span class="has-text-weight-semibold">
+                                                        Integration Specialist<br>
+                                                    </span>
+                                                    <span class="">
+                                                        Solita, Gothenburg<br>
+                                                        <small>2023 - present</small>
+                                                    </span>
                                                 </p>
                                             </div>
                                             <div class="column cv-img has-text-right">
                                                 <a href="https://www.solita.fi/" target="_blank">
                                                     <img src="images/solita.svg" alt="Solita" width="35">
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="columns">
-                                            <div class="column">
-                                                <div class="tags">
-                                                    <span class="tag is-white">Boomi</span>
-                                                    <span class="tag is-white">Azure</span>
-                                                </div>
                                             </div>
                                         </div>
                                 </article>
@@ -111,32 +106,19 @@
                                         <div class="columns cv-entry">
                                             <div class="column cv-desc">
                                                 <p>
-                                                <span class="has-text-weight-semibold">
-                                                    Tech Lead<br>
-                                                </span>
+                                                    <span class="has-text-weight-semibold">
+                                                        API Tech Lead<br>
+                                                    </span>
                                                     <span class="has-text-weight-light">
-                                                Gothenburg<br>
-                                                <small>2022 - 2023</small>
-                                                </span>
+                                                        Gothenburg<br>
+                                                        <small>2022 - 2023</small>
+                                                    </span>
                                                 </p>
                                             </div>
                                             <div class="column cv-img has-text-right">
                                                 <a href="https://www.recordedfuture.com/" target="_blank">
-                                                    <img src="images/rf.svg" alt="Recorded Future" width="200">
+                                                    <img src="images/rf.svg" alt="Recorded Future" width="100">
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="columns">
-                                            <div class="column">
-                                                <div class="tags">
-                                                    <span class="tag is-white">Scala</span>
-                                                    <span class="tag is-white">Python</span>
-                                                    <span class="tag is-white">Elasticsearch</span>
-                                                    <span class="tag is-white">MongoDB</span>
-                                                    <span class="tag is-white">RabbitMQ</span>
-                                                    <span class="tag is-white">AWS</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </article>
@@ -144,11 +126,10 @@
                                 <div class="tile is-6 is-parent">
                                     <article class="tile notification is-info is-child">
                                         <div class="columns cv-entry">
-                                            <div class="column cv-desc">
+                                            <div class="column is-8 cv-desc">
                                                 <p>
                                                     <span class="has-text-weight-semibold">
-                                                        Developer<br>
-                                                        Integration Lead<br>
+                                                        Integration Lead<br>&amp; Developer<br>
                                                     </span>
                                                     <span class="has-text-weight-light">
                                                         Trollhättan<br>
@@ -160,17 +141,6 @@
                                                 <a href="https://www.varbi.com/en/" target="_blank">
                                                     <img src="images/varbi.svg" alt="Varbi AB" width="100">
                                                 </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="columns">
-                                            <div class="column">
-                                                <div class="tags">
-                                                    <span class="tag is-white">Laravel</span>
-                                                    <span class="tag is-white">Vue</span>
-                                                    <span class="tag is-white">REST</span>
-                                                    <span class="tag is-white">OpenAPI</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </article>
@@ -196,47 +166,31 @@
                                                 </a>
                                             </div>
                                         </div>
-
-                                        <div class="columns">
-                                            <div class="column">
-                                                <div class="tags">
-                                                    <span class="tag is-white">Zend Framework</span>
-                                                    <span class="tag is-white">jQuery</span>
-                                                    <span class="tag is-white">MySQL</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </article>
                                 </div>
                                 <div class="tile is-6 is-parent">
                                     <article class="tile notification is-info is-child">
-                                    <div class="columns cv-entry">
-                                        <div class="column cv-desc">
-                                            <p>
-                                                <span class="has-text-weight-semibold">Bachelor of Science, Computer Engineering</span><br>
-                                                <span class="has-text-weight-light">
-                                                University West, Trollhättan<br>
-                                                <small>2009 - 2012</small>
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
+                                        <div class="columns cv-entry">
+                                            <div class="column is-10 cv-desc">
+                                                <p>
+                                                    <span class="has-text-weight-semibold">
+                                                        Bachelor of Science<br>
+                                                        Computer Engineering<br>
+                                                    </span>
+                                                    <span class="has-text-weight-light">
+                                                    University West, Trollhättan<br>
+                                                    <small>2009 - 2012</small>
+                                                    </span>
+                                                </p>
+                                            </div>
 
-                                    <div class="columns">
-                                        <div class="column">
-                                            <div class="tags">
-                                                <span class="tag is-white">C#</span>
-                                                <span class="tag is-white">C/C++</span>
-                                                <span class="tag is-white">Java</span>
-                                                <span class="tag is-white">PHP</span>
-                                                <span class="tag is-white">Javascript</span>
-                                                <span class="tag is-white">Python</span>
-                                                <span class="tag is-white">SQL</span>
-                                                <span class="tag is-white">MATLAB</span>
+                                            <div class="column cv-img has-text-right">
+                                                <span class="icon is-large">
+                                                    <i class="fas fa-2x fa-graduation-cap"></i>
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                </article>
+                                    </article>
                                 </div>
                             </div>
                         </div>
@@ -245,12 +199,33 @@
             </div>
         </div>
 
-        <section>
-            <div class="buttons is-centered">
-                <a href="mailto:tomas@tthe.se" class="button is-primary is-large">Contact</a>
+
+        <div class="container my-6 block-padding has-text-centered">
+            <div class="columns">
+                <div class="column is-two-thirds is-offset-2">
+
+                    <p id="cv-links">
+                        <a href="https://www.linkedin.com/in/tomasthelander/" target="_blank">
+                            <span class="icon is-large">
+                                <i class="fab fa-2x fa-linkedin-in"></i>
+                            </span>
+                        </a>
+                        <a href="https://github.com/dekadans" target="_blank">
+                            <span class="icon is-large">
+                                <i class="fab fa-2x fa-github"></i>
+                            </span>
+                        </a>
+                    </p>
+                    <div id="mail-container">
+                        <span class="mail-component-a">&#x74;&#x6F;&#x6D;&#x61;&#x73;</span>
+                        <span class="mail-component-b">&#x6B;&#x73;&#x66;&#x6A;</span>
+                        <span class="mail-component-a">&#x5B;&#x61;&#x74;&#x5D;</span>
+                        <span class="mail-component-b">&#x65;&#x67;&#x66;</span>
+                        <span class="mail-component-a">&#x74;&#x74;&#x68;&#x65;&#x2E;&#x73;&#x65;</span>
+                    </div>
+                </div>
             </div>
-            <p>&nbsp;</p>
-        </section>
+        </div>
 
         <div class="container my-6 block-padding">
             <div class="columns">
@@ -273,7 +248,7 @@
 
         <footer class="footer">
             <div class="content has-text-centered">
-                <p>tthe.se | © 2022 Tomas Thelander</p>
+                <p>tthe.se | © 2024 Tomas Thelander</p>
                 <p>
                     <a href="https://repcal.info" target="_blank">repcal.info</a> |
                     <a href="https://randomlovecraft.com" target="_blank">randomlovecraft.com</a>
