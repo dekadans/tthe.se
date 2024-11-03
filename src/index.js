@@ -1,24 +1,13 @@
-import letterboxd from './letterboxd'
 import Vue from 'vue';
-import FilmWidget from './components/FilmWidget.vue'
+import Activity from "./components/Activity.vue";
 
 new Vue({
-    el: '#film',
-    data: {
-        film : null
-    },
+    el: '#activity',
     components: {
-        FilmWidget
+        Activity
     },
     render(h) {
-        return h('FilmWidget', {
-            props : {
-                film : this.film
-            }
-        });
-    },
-    created: async function () {
-        this.film = await letterboxd('filmfeed.php').latest();
+        return h('Activity');
     }
 })
 

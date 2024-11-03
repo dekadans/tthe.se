@@ -1,10 +1,14 @@
 <template>
+  <div class="box">
     <p v-if="!film">Loading...</p>
     <article v-else class="media">
         <figure class="media-left">
             <img alt="Film poster" :src="film.poster">
         </figure>
         <div class="media-content">
+            <p>
+              <span class="tag is-light is-pulled-right">Film</span>
+            </p>
             <p>
                 <strong>{{film.title}}</strong> <small>{{film.year}}</small>
             </p>
@@ -14,6 +18,7 @@
             </p>
         </div>
     </article>
+  </div>
 </template>
 
 <script>
