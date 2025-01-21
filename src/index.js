@@ -10,7 +10,3 @@ new Vue({
         return h('Activity');
     }
 })
-
-document.querySelector('#scroll-down').addEventListener('click', () => {
-    document.querySelector('#cv').scrollIntoView({behavior:'smooth'});
-});

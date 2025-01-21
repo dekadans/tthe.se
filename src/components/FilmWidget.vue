@@ -1,24 +1,22 @@
 <template>
-  <div class="box">
+  <article>
+    <header>Latest film I've seen</header>
     <p v-if="!film">Loading...</p>
-    <article v-else class="media">
-        <figure class="media-left">
-            <img alt="Film poster" :src="film.poster">
-        </figure>
-        <div class="media-content">
-            <p>
-              <span class="tag is-light is-pulled-right">Film</span>
-            </p>
-            <p>
-                <strong>{{film.title}}</strong> <small>{{film.year}}</small>
-            </p>
-            <StarRating :rating="film.rating"></StarRating>
-            <p class="mt-4">
-                <small>{{film.watched}} - via <a :href="film.link" target="_blank">Letterboxd</a></small>
-            </p>
-        </div>
-    </article>
-  </div>
+    <div v-else class="film-poster">
+      <figure>
+        <img alt="Film poster" :src="film.poster">
+      </figure>
+      <div class="film-details">
+        <p>
+          <strong>{{film.title}}</strong> <small>{{film.year}}</small>
+        </p>
+        <StarRating :rating="film.rating"></StarRating>
+        <p>
+          <small>{{film.watched}} - via <a :href="film.link" target="_blank">Letterboxd</a></small>
+        </p>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
@@ -37,9 +35,29 @@
         max-width: 150px;
     }
 
-    @media(max-width: 576px) {
+    @media(max-width: 1024px) {
         img {
             max-width: 75px;
         }
+    }
+
+    .film-poster {
+      display: flex;
+    }
+
+    figure {
+      margin-right: 1rem;
+      flex-basis: auto;
+      flex-grow: 0;
+    }
+
+    .film-details {
+      flex-basis: auto;
+      flex-grow: 1;
+
+    }
+
+    p {
+      margin-bottom: 0.5rem;
     }
 </style>

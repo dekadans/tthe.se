@@ -1,7 +1,6 @@
 
 <template>
   <div>
-    <BookWidget :book="book"></BookWidget>
     <FilmWidget :film="film"></FilmWidget>
   </div>
 </template>
@@ -22,7 +21,7 @@ export default {
   },
   created: async function () {
     this.film = await letterboxd('filmfeed.php').latest();
-    this.book = await fetch('book.php').then(d => d.json());
+    //this.book = await fetch('book.php').then(d => d.json());
   }
 }
 </script>
