@@ -20,7 +20,7 @@ export default {
     }
   },
   created: async function () {
-    this.film = await letterboxd('filmfeed.php').latest();
+    this.film = await letterboxd('/activity/film/rss').latest();
     //this.book = await fetch('book.php').then(d => d.json());
   }
 }

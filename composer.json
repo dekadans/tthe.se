@@ -1,7 +1,13 @@
 {
     "require": {
-        "php": "^8.1",
-        "google/apiclient": "^2.15.0"
+        "php": "^8.3",
+        "google/apiclient": "^2.15.0",
+        "twig/twig": "^3.20",
+        "symfony/console": "^7.2",
+        "symfony/filesystem": "^7.2",
+        "symfony/http-kernel": "^7.2",
+        "symfony/routing": "^7.2",
+        "symfony/dotenv": "^7.2"
     },
     "scripts": {
         "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
@@ -10,5 +16,10 @@
         "google/apiclient-services": [
             "Sheets"
         ]
+    },
+    "autoload": {
+        "psr-4": {
+            "tthe\\": "src/"
+        }
     }
 }
