@@ -1,0 +1,24 @@
+<h2 id="certifications">Professional Certifications</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Issuer</th>
+        <th>Name</th>
+        <th>Issued</th>
+        <th>Expires</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cert in hasCertification %}
+        <tr>
+            <td>{{ cert.issuedBy.name }}</td>
+            <td>{{ cert.name }}</td>
+            <td>{{ cert.validFrom }}</td>
+            <td>{{ cert.expires }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<hr>

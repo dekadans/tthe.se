@@ -1,0 +1,541 @@
+{
+  "@id": "https://tthe.se/me",
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "givenName": "Tomas",
+  "familyName": "Thelander",
+  "url": "https://tthe.se",
+  "email": "mailto:...",
+  "image": "",
+  "sameAs": [
+    "https://www.linkedin.com/in/tomasthelander/",
+    "https://github.com/dekadans"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": {
+      "@type": "Country",
+      "name": "Sweden",
+      "alternateName": "SE"
+    },
+    "addressLocality": "Göteborg"
+  },
+  "knowsLanguage": [
+    {
+      "@type": "Language",
+      "name": "Swedish",
+      "alternateName": "sv"
+    },
+    {
+      "@type": "Language",
+      "name": "English",
+      "alternateName": "en"
+    }
+  ],
+  "worksFor": [
+    {
+      "@type": "OrganizationRole",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Solita",
+        "location": "Göteborg",
+        "sameAs": "https://www.solita.fi",
+        "subOrganization": [
+          {
+            "@type": "Project",
+            "name": "Wärtsilä",
+            "sameAs": "https://www.wartsila.com",
+            "description": "API Design & Development"
+          },
+          {
+            "@type": "Project",
+            "name": "Danfoss",
+            "sameAs": "https://www.danfoss.com",
+            "description": "API Security"
+          },
+          {
+            "@type": "Project",
+            "name": "Northvolt",
+            "sameAs": "https://northvolt.com",
+            "description": "Integration Solution Architecture"
+          },
+          {
+            "@type": "Project",
+            "name": "ONE Nordic",
+            "sameAs": "https://www.one-nordic.se",
+            "description": "Integration Architecture"
+          }
+        ],
+        "event": [
+          {
+            "@type": "Event",
+            "name": "AI Agents & Model Context Protocol: Smarter Context-Aware AI",
+            "startDate": [
+              "2025-04-22"
+            ]
+          },
+          {
+            "@type": "Event",
+            "name": "How to create the APIs of the future using ideas from the 90's",
+            "startDate": [
+              "2023-10-25",
+              "2024-10-10"
+            ]
+          }
+        ]
+      },
+      "startDate": "2023-09-11",
+      "roleName": "Integration Specialist",
+      "description": "Example description"
+    },
+    {
+      "@type": "OrganizationRole",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Recorded Future",
+        "location": "Göteborg",
+        "sameAs": "https://www.recordedfuture.com"
+      },
+      "startDate": "2022-08-15",
+      "endDate": "2023-08-31",
+      "roleName": "Senior Software Developer",
+      "description": ""
+    },
+    {
+      "@type": "OrganizationRole",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Varbi",
+        "location": "Trollhättan",
+        "sameAs": "https://www.grade.com"
+      },
+      "startDate": "2016-08-01",
+      "endDate": "2022-06-23",
+      "roleName": "Software Developer",
+      "description": "Note: Varbi has since been acquired and merged with the company Grade.\n\nMore description."
+    },
+    {
+      "@type": "OrganizationRole",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Mobajl",
+        "location": "Göteborg",
+        "sameAs": "https://mobajl.com"
+      },
+      "startDate": "2012-06-01",
+      "endDate": "2016-07-31",
+      "roleName": "Web Developer",
+      "description": ""
+    }
+  ],
+  "alumniOf": [
+    {
+      "@type": "OrganizationRole",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University West",
+        "alternateName": "Högskolan Väst",
+        "location": "Trollhättan",
+        "sameAs": "https://www.hv.se"
+      },
+      "startDate": "2013-03-18",
+      "description": "Computer Engineering & Software Development (Datateknisk systemutveckling), 180 ECTS credits."
+    },
+    {
+      "@type": "OrganizationRole",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Birger Sjöberggymnasiet",
+        "location": "Vänersborg",
+        "sameAs": "https://kunskapsforbundet.se/birger-sjoberggymnasiet/"
+      },
+      "startDate": "2009-06-05",
+      "description": "Upper Secondary School: Technology Studies."
+    }
+  ],
+  "affiliation": [
+    {
+      "@type": "OrganizationRole",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Lundby koloniträdgårdar",
+        "location": "Göteborg",
+        "sameAs": "https://www.lundbykolonin.se/"
+      },
+      "startDate": "2025-02-23",
+      "roleName": "Webmaster",
+      "description": ""
+    }
+  ],
+  "hasCertification": [
+    {
+      "@type": "Certification",
+      "name": "Professional API Management",
+      "validFrom": "2024-02-08",
+      "expires": "2026-02-08",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Professional API Design",
+      "validFrom": "2024-01-23",
+      "expires": "2026-01-23",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Associate EDI for X12",
+      "validFrom": "2023-12-12",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Azure Developer Associate",
+      "validFrom": "2023-11-28",
+      "expires": "2025-11-29",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Azure Fundamentals",
+      "validFrom": "2023-10-04",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Microsoft"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Development and Application Architecture",
+      "validFrom": "2023-09-21",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Professional Integration Developer",
+      "validFrom": "2023-09-18",
+      "expires": "2025-09-18",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Associate Integration Developer",
+      "validFrom": "2023-09-14",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Boomi"
+      }
+    },
+    {
+      "@type": "Certification",
+      "name": "Professional Scrum Master I",
+      "validFrom": "2019-07-09",
+      "issuedBy": {
+        "@type": "Organization",
+        "name": "Scrum.org"
+      }
+    }
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2022-01-14",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "QUIC and the Evolution of the Web",
+        "alternateName": "QUIC och webbens utveckling",
+        "numberOfCredits": "1.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Bachelor of Science, Computer Engineering",
+      "alternateName": "Teknologie kandidatexamen, Datateknik",
+      "credentialCategory": "Degree",
+      "datePublished": "2013-04-16"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2013-03-18",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Thesis Work",
+        "alternateName": "Examensarbete, datateknik",
+        "numberOfCredits": "15"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2012-05-30",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Software Engineering",
+        "alternateName": "Programvaruteknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2012-03-21",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Mobile IT",
+        "alternateName": "Mobil datateknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2012-01-19",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Embedded Systems",
+        "alternateName": "Inbyggda system",
+        "numberOfCredits": "15"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2012-01-10",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Mathematical simulation technology",
+        "alternateName": "Matematisk simuleringsteknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-09-30",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Mathematics for discrete dynamic systems",
+        "alternateName": "Matematik för diskreta dynamiska system",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-09-24",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Object-Oriented Programming in Java",
+        "alternateName": "Objektorienterad programmering med Java",
+        "numberOfCredits": "10"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-06-23",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Web Services and system integration",
+        "alternateName": "Webbtjänster och systemintegration",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-06-09",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Fundamentals of WAN technology",
+        "alternateName": "Grundläggande WAN teknik",
+        "numberOfCredits": "5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-04-18",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Advanced Web Technology and System Security",
+        "alternateName": "Fördjupad webbteknik med systemsäkerhet",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-03-24",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Fundamentals of LAN technology",
+        "alternateName": "Grundläggande LAN teknik",
+        "numberOfCredits": "5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-03-01",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Fundamentals of Routing",
+        "alternateName": "Grundläggande routing",
+        "numberOfCredits": "5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-01-25",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Web development - models, services, solutions and technologies",
+        "alternateName": "Webbutveckling - modeller, tjänster, teknik och lösningar",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2011-01-11",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Introduction to Distributed Systems",
+        "alternateName": "Introduktion till distribuerade system",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-12-02",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Web Technology",
+        "alternateName": "Webbteknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-11-02",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Operating Systems",
+        "alternateName": "Operativsystem",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-06-04",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Mathematical problemsolving, logic and methods with MATLAB",
+        "alternateName": "Matematisk problemlösning, logik och metoder med MATLAB",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-06-02",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Design and Practical Use of Databases",
+        "alternateName": "Databaser och databasdesign",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-03-25",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Structured programming with C",
+        "alternateName": "Strukturerad programmering med C",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-03-23",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Discrete Mathematics for Computer Engineers",
+        "alternateName": "Diskreta matematiska metoder inom datateknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-01-15",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Systems development in Computer engineering",
+        "alternateName": "Teknisk systemutveckling",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2010-01-13",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "IT security",
+        "alternateName": "IT-säkerhet",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2009-11-06",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Fundamentals of Network and Internet Technology",
+        "alternateName": "Grundläggande nätverks- och internetteknik",
+        "numberOfCredits": "7.5"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "University Course",
+      "datePublished": "2009-11-03",
+      "isBasedOn": {
+        "@type": "Course",
+        "name": "Computer Science",
+        "alternateName": "Datateknik",
+        "numberOfCredits": "7.5"
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@ class StaticSiteGenerationCommand extends Command
         $fs = new Filesystem();
 
         $twig = new Environment(new FilesystemLoader(__DIR__.'/../templates'));
-        $template = $twig->load('index.html.twig');
+        $template = $twig->load('me.html.twig');
 
         $data = json_decode(
             $fs->readFile(__DIR__.$_ENV['DATA_FILE']),
