@@ -7,6 +7,11 @@ use Symfony\Component\Routing\Route;
 
 class AttributeRouteControllerLoader extends AttributeClassLoader
 {
+    public function __construct(protected array $defaults = [])
+    {
+        parent::__construct();
+    }
+
 
     protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, object $attr)
     {
@@ -15,5 +20,7 @@ class AttributeRouteControllerLoader extends AttributeClassLoader
         } else {
             $route->setDefault('_controller', $class->getName().'::'.$method->getName());
         }
+
+        $route->addDefaults($this->defaults);
     }
 }

@@ -2,8 +2,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,8 +21,10 @@ use tthe\framework\AttributeRouteControllerLoader;
  *
  */
 
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/../.env');
+/**
+ * @var \Symfony\Component\Config\FileLocatorInterface $fileLocator
+ */
+$dependencies = require_once __DIR__ . '/../src/framework/dependencies.php';
 
 if ($_ENV["DEBUG"]) {
     error_reporting(E_ALL & ~E_NOTICE);
@@ -32,10 +32,8 @@ if ($_ENV["DEBUG"]) {
     error_reporting(0);
 }
 
-$fileLocator = new FileLocator(__DIR__.'/../src/');
-
-$routeDirLoader = new AttributeDirectoryLoader($fileLocator, new AttributeRouteControllerLoader());
-$routes = $routeDirLoader->load('controllers');
+$routeDirLoader = new AttributeDirectoryLoader($fileLocator, new AttributeRouteControllerLoader($dependencies));
+$routes = $routeDirLoader->load('src/controllers');
 
 $request = Request::createFromGlobals();
 
