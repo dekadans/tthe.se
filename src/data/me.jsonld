@@ -65,28 +65,11 @@
             "sameAs": "https://www.one-nordic.se",
             "description": "Integration Architecture"
           }
-        ],
-        "event": [
-          {
-            "@type": "Event",
-            "name": "AI Agents & Model Context Protocol: Smarter Context-Aware AI",
-            "startDate": [
-              "2025-04-22"
-            ]
-          },
-          {
-            "@type": "Event",
-            "name": "How to create the APIs of the future using ideas from the 90's",
-            "startDate": [
-              "2023-10-25",
-              "2024-10-10"
-            ]
-          }
         ]
       },
       "startDate": "2023-09-11",
       "roleName": "Integration Specialist",
-      "description": "Example description"
+      "description": "Consultant specializing in the architecture, design and development of APIs and integrations."
     },
     {
       "@type": "OrganizationRole",
@@ -99,7 +82,7 @@
       "startDate": "2022-08-15",
       "endDate": "2023-08-31",
       "roleName": "Senior Software Developer",
-      "description": ""
+      "description": "Tech Lead for the API product team, responsible for the main product's external APIs."
     },
     {
       "@type": "OrganizationRole",
@@ -112,7 +95,7 @@
       "startDate": "2016-08-01",
       "endDate": "2022-06-23",
       "roleName": "Software Developer",
-      "description": "Note: Varbi has since been acquired and merged with the company Grade.\n\nMore description."
+      "description": "Full-stack software developer over time specializing in integrations and appointed Integration Lead. Overall responsibility of design, architecture, strategy and management of integration projects.\n\nNote: Varbi has since been acquired and merged with the company Grade."
     },
     {
       "@type": "OrganizationRole",
@@ -125,7 +108,7 @@
       "startDate": "2012-06-01",
       "endDate": "2016-07-31",
       "roleName": "Web Developer",
-      "description": ""
+      "description": "Junior developer involved in both small scale advertisement projects and large scale application development."
     }
   ],
   "alumniOf": [
@@ -165,6 +148,23 @@
       "startDate": "2025-02-23",
       "roleName": "Webmaster",
       "description": ""
+    }
+  ],
+  "performerIn": [
+    {
+      "@type": "Event",
+      "name": "AI Agents & Model Context Protocol: Smarter Context-Aware AI",
+      "startDate": [
+        "2025-04-22"
+      ]
+    },
+    {
+      "@type": "Event",
+      "name": "How to create the APIs of the future using ideas from the 90's",
+      "startDate": [
+        "2023-10-25",
+        "2024-10-10"
+      ]
     }
   ],
   "hasCertification": [

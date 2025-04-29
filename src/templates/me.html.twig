@@ -70,6 +70,7 @@
     <li><a href="#work-history">Work History</a></li>
     <li><a href="#alma-mater">Almae Matres</a></li>
     <li><a href="#volunteering">Volunteering</a></li>
+    <li><a href="#speaking">Public Speaking</a></li>
     <li><a href="#certifications">Professional Certifications</a></li>
     <li><a href="#credentials">Educational Credentials</a></li>
 </ol>
@@ -93,6 +94,8 @@
     {{ macros.role(role, "affiliation") }}
 {% endfor %}
 <hr>
+
+{{ include('events.html.twig') }}
 
 {{ include('certifications.html.twig') }}
 
