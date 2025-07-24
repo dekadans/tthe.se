@@ -5,7 +5,7 @@
 {% macro role(role, attribute) %}
     <article>
         <hgroup>
-            <h3>{{ role[attribute].name }}</h3>
+            <h4>{{ role[attribute].name }}</h4>
             <p>
                 <small>
                     {% if role[attribute].alternateName %}
@@ -17,36 +17,37 @@
             </p>
         </hgroup>
 
-        <p>
-            {% if attribute == "alumniOf" %}
-                <strong>Graduation:</strong> {{ role.startDate }}
-            {% else %}
-                <em>{{ role.roleName }}</em> from {{ role.startDate }} to {{ role.endDate ?? "present" }}.
+        <div class="grid">
+            <div>
+                <p>
+                    {% if attribute == "alumniOf" %}
+                        <strong>Graduation:</strong> {{ role.startDate }}
+                    {% else %}
+                        <strong>{{ role.roleName }}</strong> from <em>{{ role.startDate }}</em> to <em>{{ role.endDate ?? "present" }}</em>.
+                    {% endif %}
+                </p>
+            </div>
+            {% if role.description %}
+            <div>
+                <p><em>{{ role.description|nl2br }}</em></p>
+            </div>
             {% endif %}
-        </p>
-
-        {% if role.description %}
-            <blockquote>
-                <p>{{ role.description|nl2br }}</p>
-            </blockquote>
-        {% endif %}
+        </div>
 
         {% if role[attribute].subOrganization %}
-            <table>
-                <thead>
-                <tr>
-                    <th colspan="2">Consulting Assignments</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for project in role[attribute].subOrganization %}
-                    <tr>
-                        <td>{{ _self.url(project.sameAs, project.name) }}</td>
-                        <td>{{ project.description }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <details>
+                <summary role="button" class="secondary outline">Consulting Assignments</summary>
+                <table>
+                    <tbody>
+                    {% for project in role[attribute].subOrganization %}
+                        <tr>
+                            <td>{{ _self.url(project.sameAs, project.name) }}</td>
+                            <td>{{ project.description }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </details>
         {% endif %}
     </article>
 {% endmacro %}

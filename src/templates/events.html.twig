@@ -1,20 +1,21 @@
-<h2 id="speaking">Public Speaking</h2>
+<section>
+    <h3 id="speaking">Public Speaking</h3>
 
-<table>
-    <thead>
-    <tr>
-        <th>Event</th>
-        <th>Occasions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for event in performerIn %}
+    <table class="striped">
+        <thead>
         <tr>
-            <td>{{ event.name }}</td>
-            <td>{{ event.startDate|join('\n')|nl2br }}</td>
+            <th>Event</th>
+            <th>Occasions</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+        {% for event in performerIn %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.startDate|join('\n')|nl2br }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
 <hr>
