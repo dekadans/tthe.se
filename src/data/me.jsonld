@@ -5,8 +5,6 @@
   "givenName": "Tomas",
   "familyName": "Thelander",
   "url": "https://tthe.se",
-  "email": "mailto:...",
-  "image": "",
   "sameAs": [
     "https://www.linkedin.com/in/tomasthelander/",
     "https://github.com/dekadans"
@@ -63,7 +61,7 @@
             "@type": "Project",
             "name": "ONE Nordic",
             "sameAs": "https://www.one-nordic.se",
-            "description": "Integration Architecture"
+            "description": "Integration Architecture, API Design & Development"
           }
         ]
       },

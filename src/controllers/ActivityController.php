@@ -4,10 +4,12 @@ namespace tthe\controllers;
 
 use Google\Client;
 use Google\Service\Sheets;
+use Laminas\Feed\Reader\Reader;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use tthe\services\film\FilmService;
 
 class ActivityController
 {
@@ -20,6 +22,27 @@ class ActivityController
         $response->setMaxAge(10000);
         $response->headers->set('Content-Type', 'application/xml');
         return $response;
+    }
+
+    #[Route('/activity/film/json', name: 'film-json')]
+    public function film_json(): JsonResponse
+    {
+        /*
+         * Just a draft!
+         */
+        $films = new FilmService();
+        $films->load();
+        $list = [];
+
+        foreach ($films->feed as $item) {
+            $list[] = $item->getXpath()->evaluate(
+                'string(' . $item->getXpathPrefix() . '/letterboxd:filmTitle)'
+            );
+        }
+
+        $list = array_filter($list);
+
+        return (new JsonResponse($list))->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }
 
     #[Route('/activity/book', name: 'book')]
