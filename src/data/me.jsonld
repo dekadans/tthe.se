@@ -190,6 +190,7 @@
       "@type": "Certification",
       "name": "Associate EDI for X12",
       "validFrom": "2023-12-12",
+      "expires": "2028-12-12",
       "issuedBy": {
         "@type": "Organization",
         "name": "Boomi"
@@ -216,8 +217,9 @@
     },
     {
       "@type": "Certification",
-      "name": "Development and Application Architecture",
+      "name": "Associate Integration Architect",
       "validFrom": "2023-09-21",
+      "expires": "2028-09-21",
       "issuedBy": {
         "@type": "Organization",
         "name": "Boomi"
@@ -237,6 +239,7 @@
       "@type": "Certification",
       "name": "Associate Integration Developer",
       "validFrom": "2023-09-14",
+      "expires": "2028-09-14",
       "issuedBy": {
         "@type": "Organization",
         "name": "Boomi"
