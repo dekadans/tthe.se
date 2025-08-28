@@ -150,7 +150,8 @@
         "@type": "Organization",
         "name": "Lundby koloniträdgårdar",
         "location": "Göteborg",
-        "sameAs": "https://www.lundbykolonin.se/"
+        "sameAs": "https://www.lundbykolonin.se/",
+        "description": "Allotment garden association."
       },
       "startDate": "2025-02-23",
       "roleName": "Webmaster",
