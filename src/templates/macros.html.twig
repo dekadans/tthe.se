@@ -5,7 +5,9 @@
 {% macro role(role, attribute) %}
     <article>
         <hgroup>
-            <h4>{{ role[attribute].name }}</h4>
+            <h4>
+                {{ role[attribute].name }}
+            </h4>
             <p>
                 <small>
                     {% if role[attribute].alternateName %}
@@ -15,6 +17,12 @@
                     {{ _self.url(role[attribute].sameAs, "Website") }}
                 </small>
             </p>
+
+            {% if role[attribute].description %}
+                <p>
+                    <small>&#9432; {{ role[attribute].description }}</small>
+                </p>
+            {% endif %}
         </hgroup>
 
         <div class="grid">
@@ -26,6 +34,11 @@
                         <strong>{{ role.roleName }}</strong> from <em>{{ role.startDate }}</em> to <em>{{ role.endDate ?? "present" }}</em>.
                     {% endif %}
                 </p>
+                {% if role.alternateName %}
+                <p>
+                    Additional roles: {{ role.alternateName|join(", ") }}
+                </p>
+                {% endif %}
             </div>
             {% if role.description %}
             <div>

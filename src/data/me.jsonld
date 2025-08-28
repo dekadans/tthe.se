@@ -80,7 +80,11 @@
       "startDate": "2022-08-15",
       "endDate": "2023-08-31",
       "roleName": "Senior Software Developer",
-      "description": "Tech Lead for the API product team, responsible for the main product's external APIs."
+      "alternateName": [
+        "Tech Lead",
+        "Team Lead"
+      ],
+      "description": "Leading the API product team, responsible for the main product's external APIs."
     },
     {
       "@type": "OrganizationRole",
@@ -88,12 +92,17 @@
         "@type": "Organization",
         "name": "Varbi",
         "location": "Trollhättan",
-        "sameAs": "https://www.grade.com"
+        "sameAs": "https://www.grade.com",
+        "description": "Varbi has since merged with the company Grade."
       },
       "startDate": "2016-08-01",
       "endDate": "2022-06-23",
       "roleName": "Software Developer",
-      "description": "Full-stack software developer over time specializing in integrations and appointed Integration Lead. Overall responsibility of design, architecture, strategy and management of integration projects.\n\nNote: Varbi has since been acquired and merged with the company Grade."
+      "alternateName": [
+        "Integration Lead",
+        "Scrum Master"
+      ],
+      "description": "Full-stack software developer over time specializing in integrations. Granted the overall responsibility of design, architecture, strategy and management of integration projects."
     },
     {
       "@type": "OrganizationRole",
