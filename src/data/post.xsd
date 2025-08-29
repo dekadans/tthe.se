@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://tthe.se/meta/schemas/post"
+           xmlns:tns="https://tthe.se/meta/schemas/post"
+           elementFormDefault="qualified">
+
+    <!-- Root element definition -->
+    <xs:element name="post" type="tns:PostType"/>
+
+    <!-- Complex type for post element -->
+    <xs:complexType name="PostType">
+        <xs:sequence>
+            <!-- Title element: required string -->
+            <xs:element name="title" type="xs:string"/>
+
+            <!-- Date element: required ISO 8601 datetime -->
+            <xs:element name="date" type="xs:dateTime"/>
+
+            <!-- Content element with type attribute -->
+            <xs:element name="content" type="tns:ContentType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Complex type for content element -->
+    <xs:complexType name="ContentType">
+        <xs:simpleContent>
+            <!-- Content has text value and a type attribute -->
+            <xs:extension base="xs:string">
+                <xs:attribute name="type" type="tns:ContentTypeEnum" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- Enumeration for content type attribute -->
+    <xs:simpleType name="ContentTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="text/plain"/>
+            <xs:enumeration value="text/markdown"/>
+            <xs:enumeration value="text/html"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

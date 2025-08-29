@@ -2,7 +2,9 @@
 
 namespace tthe\framework;
 
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocatorInterface;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 
 class FileManager
@@ -12,6 +14,10 @@ class FileManager
         protected Filesystem $fs
     ) {}
 
+    /**
+     * @throws FileLocatorFileNotFoundException
+     * @throws IOException
+     */
     public function read(string $name): string
     {
         $fileName = $this->fileLocator->locate($name);

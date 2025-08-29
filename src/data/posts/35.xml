@@ -1,0 +1,9 @@
+<post xmlns="https://tthe.se/meta/schemas/post"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://tthe.se/meta/schemas/post ../post.xsd">
+    <title>35 år!</title>
+    <date>2025-08-29T11:15:00Z</date>
+    <content type="text/markdown">
+        Hej hej!
+    </content>
+</post>
