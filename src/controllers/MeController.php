@@ -10,6 +10,8 @@ use tthe\framework\FileManager;
 
 class MeController
 {
+    use HttpSupportTrait;
+
     const string HTML = "text/html";
     const string JSON = "application/ld+json";
 
@@ -21,21 +23,13 @@ class MeController
             self::JSON => $_ENV['DATA_FILE']
         ];
 
-        $acceptHeader = AcceptHeader::fromString(
-            $request->headers->get('Accept') ?? '*/*'
-        );
-        $htmlPrio = $acceptHeader->get(self::HTML)?->getQuality() ?? 0;
-        $jsonPrio = $acceptHeader->get(self::JSON)?->getQuality() ?? 0;
+        $mediaType = $this->negotiateContentType($request, array_keys($filePaths));
 
-        $mediaType = $jsonPrio > $htmlPrio ? self::JSON : self::HTML;
         $content = $files->read($filePaths[$mediaType]);
 
         $response = new Response($content);
-        $response->setVary('Accept');
-        $response->setEtag(hash('sha1', $content));
         $response->headers->set('Content-Type', $mediaType);
-        $response->isNotModified($request);
-
+        $this->cacheHeaders($request, $response);
         return $response;
     }
 }

@@ -6,10 +6,11 @@ use tthe\commands\StaticSiteGenerationCommand;
 
 /**
  * @var \tthe\framework\FileManager $fileManager
+ * @var \tthe\services\posts\PostRepository $postRepo
  */
 require_once __DIR__ . '/framework/dependencies.php';
 
 $application = new Application('tthe.se');
-$application->add(new StaticSiteGenerationCommand($fileManager));
+$application->add(new StaticSiteGenerationCommand($fileManager, $postRepo));
 
 $application->run();

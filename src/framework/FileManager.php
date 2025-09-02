@@ -34,4 +34,10 @@ class FileManager
     {
         return $this->fileLocator->locate('.env');
     }
+
+    public function glob(string $directory, string $mask): array
+    {
+        $path = $this->fileLocator->locate($directory);
+        return glob($path . $mask);
+    }
 }

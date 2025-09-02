@@ -3,33 +3,34 @@
 namespace tthe\controllers;
 
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use tthe\framework\FileManager;
+use tthe\services\posts\PostRepository;
 
 class PostsController
 {
-    #[Route('/posts/{id}', name: 'post')]
-    public function displayPost(string $id, FileManager $files): Response
-    {
-        try {
-            $post = $files->read('src/templates/post.html.twig');
-            return new Response($post);
-        } catch (FileLocatorFileNotFoundException $ex) {
-            throw new NotFoundHttpException();
-        }
-    }
+    use HttpSupportTrait;
 
-    #[Route('/posts/{id}/xml', name: 'post-xml')]
-    public function displayPostXml(string $id, FileManager $files): Response
+    #[Route('/posts/{id}', name: 'post')]
+    public function displayPost(string $id, Request $request, PostRepository $postRepository): Response
     {
         try {
-            $post = $files->read("src/data/posts/{$id}.xml");
-            $response = new Response($post);
-            $response->headers->set('Content-Type', 'application/xml');
+            $mediaType = $this->negotiateContentType($request, ['text/html', 'application/xml']);
+
+            $content = match ($mediaType) {
+                'application/xml' => $postRepository->getOneAsXml($id),
+                default => $postRepository->getOneAsHtml($id)
+            };
+
+            $response = new Response($content);
+            $response->headers->set('Content-Type', $mediaType);
+            $this->cacheHeaders($request, $response);
             return $response;
-        } catch (FileLocatorFileNotFoundException $ex) {
+
+        } catch (FileLocatorFileNotFoundException) {
             throw new NotFoundHttpException();
         }
     }

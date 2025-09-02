@@ -1,9 +1,17 @@
 <post xmlns="https://tthe.se/meta/schemas/post"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://tthe.se/meta/schemas/post ../post.xsd">
+      xsi:schemaLocation="https://tthe.se/meta/schemas/post schema.xsd">
     <title>35 år!</title>
     <date>2025-08-29T11:15:00Z</date>
-    <content type="text/markdown">
-        Hej hej!
-    </content>
+    <content type="text/markdown"><![CDATA[
+Välkommen på trettiofemårsfest i Göteborg den **4 oktober**!
+
+## Vad händer?
+
+Info
+
+## Var då?
+
+Blah
+    ]]></content>
 </post>

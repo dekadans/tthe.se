@@ -7,7 +7,7 @@ use tthe\framework\FileManager;
 
 // Framework dependencies
 
-$fileLocator = new FileLocator(__DIR__.'/../../');
+$fileLocator = new FileLocator(__DIR__.'/../..');
 $fileManager = new FileManager($fileLocator, new Filesystem());
 
 $dotenv = new Dotenv();
@@ -19,6 +19,9 @@ $dotenv->load($fileManager->environment());
 $feedReaderHttpClient = new \tthe\services\film\FeedReaderHttpClient(new \GuzzleHttp\Client());
 \Laminas\Feed\Reader\Reader::setHttpClient($feedReaderHttpClient);
 
+$postRepo = new \tthe\services\posts\PostRepository($fileManager);
+
 return [
-    'files' => $fileManager
+    'files' => $fileManager,
+    'postRepository' => $postRepo
 ];
