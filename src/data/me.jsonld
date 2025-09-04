@@ -40,28 +40,71 @@
         "sameAs": "https://www.solita.fi",
         "subOrganization": [
           {
-            "@type": "Project",
-            "name": "Wärtsilä",
-            "sameAs": "https://www.wartsila.com",
-            "description": "API Design & Development"
+            "@type": "OrganizationRole",
+            "startDate": "2025-08-25",
+            "numberedPosition": "2",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "Danfoss",
+              "description": "API Management"
+            }
           },
           {
-            "@type": "Project",
-            "name": "Danfoss",
-            "sameAs": "https://www.danfoss.com",
-            "description": "API Security"
+            "@type": "OrganizationRole",
+            "startDate": "2025-05-12",
+            "endDate": "2025-07-25",
+            "numberedPosition": "2",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "ONE Nordic",
+              "description": "Software Development"
+            }
           },
           {
-            "@type": "Project",
-            "name": "Northvolt",
-            "sameAs": "https://northvolt.com",
-            "description": "Integration Solution Architecture"
+            "@type": "OrganizationRole",
+            "startDate": "2024-10-21",
+            "endDate": "2025-08-31",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "Wärtsilä",
+              "sameAs": "https://www.wartsila.com",
+              "description": "Software Development & Architecture"
+            }
           },
           {
-            "@type": "Project",
-            "name": "ONE Nordic",
-            "sameAs": "https://www.one-nordic.se",
-            "description": "Integration Architecture, API Design & Development"
+            "@type": "OrganizationRole",
+            "startDate": "2024-10-07",
+            "endDate": "2024-12-20",
+            "numberedPosition": "1",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "Danfoss",
+              "sameAs": "https://www.danfoss.com",
+              "description": "API Security"
+            }
+          },
+          {
+            "@type": "OrganizationRole",
+            "startDate": "2023-12-01",
+            "endDate": "2024-09-30",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "Northvolt",
+              "sameAs": "https://northvolt.com",
+              "description": "Integration Solution Architecture"
+            }
+          },
+          {
+            "@type": "OrganizationRole",
+            "startDate": "2023-11-01",
+            "endDate": "2024-01-31",
+            "numberedPosition": "1",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "ONE Nordic",
+              "sameAs": "https://www.one-nordic.se",
+              "description": "Integration Architecture"
+            }
           }
         ]
       },

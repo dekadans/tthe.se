@@ -12,7 +12,8 @@
         "symfony/config": "^7.2",
         "guzzlehttp/guzzle": "^7.9",
         "laminas/laminas-feed": "^2.24",
-        "league/commonmark": "^2.7"
+        "league/commonmark": "^2.7",
+        "twig/intl-extra": "^3.21"
     },
     "scripts": {
         "pre-autoload-dump": "Google\\Task\\Composer::cleanup"

@@ -2,6 +2,13 @@
     <a href="{{ url }}">{{ text ?? url }}</a>
 {% endmacro %}
 
+{% macro period(startDate, endDate) %}
+    {% set startFormat = date(startDate) %}
+    {% set endFormat = endDate ? date(endDate) : date() %}
+    {% set interval = endFormat.diff(startFormat) %}
+    {{ interval.y }} years, {{ interval.m }} months
+{% endmacro %}
+
 {% macro role(role, attribute) %}
     <article>
         <hgroup>
@@ -52,9 +59,19 @@
                 <summary role="button" class="secondary outline">Consulting Assignments</summary>
                 <table>
                     <tbody>
-                    {% for project in role[attribute].subOrganization %}
+                    {% for projectRole in role[attribute].subOrganization %}
+                        {% set project = projectRole.subOrganization %}
                         <tr>
-                            <td>{{ _self.url(project.sameAs, project.name) }}</td>
+                            <td>
+                                {{ project.sameAs ? _self.url(project.sameAs, project.name) : project.name }}
+                                {% if projectRole.numberedPosition > 1 %}
+                                    ({{ projectRole.numberedPosition|format_ordinal_number }} tenure)
+                                {% endif %}
+                                <br>
+                                <small>
+                                    <em>{{ projectRole.startDate }}</em> to <em>{{ projectRole.endDate ?? "present" }}
+                                </small>
+                            </td>
                             <td>{{ project.description }}</td>
                         </tr>
                     {% endfor %}

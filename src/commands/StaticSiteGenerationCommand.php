@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use tthe\framework\FileManager;
 use tthe\services\posts\PostRepository;
 use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
 class StaticSiteGenerationCommand extends Command
@@ -21,6 +22,7 @@ class StaticSiteGenerationCommand extends Command
     )
     {
         $this->twig = new Environment(new FilesystemLoader(__DIR__.'/../templates'));
+        $this->twig->addExtension(new IntlExtension());
         parent::__construct();
     }
 
