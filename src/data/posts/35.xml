@@ -1,8 +1,10 @@
-<post xmlns="https://tthe.se/meta/schemas/post"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="https://tthe.se/meta/schemas/post schema.xsd">
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <id>tag:tthe.se,2025:posts:35.xml</id>
     <title>35 år!</title>
-    <date>2025-08-29T11:15:00Z</date>
+    <updated>2025-08-29T11:15:00Z</updated>
+    <author>
+        <name>Tomas</name>
+    </author>
     <content type="text/markdown"><![CDATA[
 Välkommen på trettiofemårsfest i Göteborg den **4 oktober**!
 
@@ -14,4 +16,4 @@ Info
 
 Blah
     ]]></content>
-</post>
+</entry>

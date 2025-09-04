@@ -68,7 +68,7 @@ class PostRepository
         return new Post(
             $id,
             (string) $xml->title,
-            new \DateTime($xml->date),
+            new \DateTime($xml->updated),
             trim((string) $xml->content),
             (string) $xml->content['type']
         );
