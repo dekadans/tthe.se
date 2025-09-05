@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ post.title }} | Tomas Thelander</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-</head>
-<body>
+{% extends "base.html.twig" %}
+
+{% block title %}{{ post.title }} | Tomas Thelander{% endblock %}
+
+{% block content %}
 <header class="container">
     <nav aria-label="breadcrumb">
         <ul>
@@ -26,5 +22,4 @@
         <small>Published {{ post.date|date('Y-m-d') }}.</small>
     </footer>
 </main>
-</body>
-</html>
+{% endblock %}

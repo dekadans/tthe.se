@@ -44,13 +44,13 @@ class StaticSiteGenerationCommand extends Command
         $template = $this->twig->load('me.html.twig');
 
         $data = json_decode(
-            $this->files->read($_ENV['DATA_FILE']),
+            $this->files->read($_ENV['CV_DATA']),
             associative: true
         );
 
         $renderedSite = $template->render($data);
 
-        $this->files->write($_ENV['STATIC_FILE'], $renderedSite);
+        $this->files->write($_ENV['CV_GENERATED'], $renderedSite);
 
         $output->writeln("Generated CV.");
     }

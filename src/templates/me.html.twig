@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tthe.se/me</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+{% extends "base.html.twig" %}
+
+{% block title %}tthe.se/me{% endblock %}
+
+{% block head %}
+    {{ parent() }}
     <style>
         ul.clean-list > li {
             list-style: none;
@@ -27,8 +26,9 @@
             }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
 <header class="container no-print">
     <nav aria-label="breadcrumb">
         <ul>
@@ -117,5 +117,5 @@
 
     {{ include('credentials.html.twig') }}
 </main>
-</body>
-</html>
+
+{% endblock %}

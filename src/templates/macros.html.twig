@@ -17,7 +17,7 @@
 
     {% set tooltip = startDate ~ ' to ' ~ (endDate ?? "present") %}
 
-    <span data-tooltip="{{ tooltip }}" data-placement="bottom">
+    <span data-tooltip="{{ tooltip }}">
         {{ [yearLabel, monthLabel] | filter(v => v) | join(', ') ~ (not endDate ? ' (ongoing)' : '') }}
     </span>
 {% endmacro %}

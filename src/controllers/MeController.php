@@ -19,8 +19,8 @@ class MeController
     function __invoke(Request $request, FileManager $files): Response
     {
         $filePaths = [
-            self::HTML => $_ENV['STATIC_FILE'],
-            self::JSON => $_ENV['DATA_FILE']
+            self::HTML => $_ENV['CV_GENERATED'],
+            self::JSON => $_ENV['CV_DATA']
         ];
 
         $mediaType = $this->negotiateContentType($request, array_keys($filePaths));
