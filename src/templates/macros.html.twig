@@ -6,7 +6,20 @@
     {% set startFormat = date(startDate) %}
     {% set endFormat = endDate ? date(endDate) : date() %}
     {% set interval = endFormat.diff(startFormat) %}
-    {{ interval.y }} years, {{ interval.m }} months
+
+    {% set yearLabel = interval.y > 0 ? (interval.y ~ (interval.y > 1 ? ' years' : ' year')) : '' %}
+
+    {% if interval.m > 1 %}
+        {% set monthLabel = interval.m ~ ' months' %}
+    {% elseif interval.m == 1 or (interval.m == 0 and interval.y == 0) %}
+        {% set monthLabel = '1 month' %}
+    {% endif %}
+
+    {% set tooltip = startDate ~ ' to ' ~ (endDate ?? "present") %}
+
+    <span data-tooltip="{{ tooltip }}" data-placement="bottom">
+        {{ [yearLabel, monthLabel] | filter(v => v) | join(', ') ~ (not endDate ? ' (ongoing)' : '') }}
+    </span>
 {% endmacro %}
 
 {% macro role(role, attribute) %}
@@ -38,7 +51,7 @@
                     {% if attribute == "alumniOf" %}
                         <strong>Graduation:</strong> {{ role.startDate }}
                     {% else %}
-                        <strong>{{ role.roleName }}</strong> from <em>{{ role.startDate }}</em> to <em>{{ role.endDate ?? "present" }}</em>.
+                        <strong>{{ role.roleName }}</strong> for {{ _self.period(role.startDate, role.endDate) }}
                     {% endif %}
                 </p>
                 {% if role.alternateName %}
@@ -65,12 +78,14 @@
                             <td>
                                 {{ project.sameAs ? _self.url(project.sameAs, project.name) : project.name }}
                                 {% if projectRole.numberedPosition > 1 %}
-                                    ({{ projectRole.numberedPosition|format_ordinal_number }} tenure)
+                                    <br>
+                                    <small>
+                                        {{ projectRole.numberedPosition|format_ordinal_number(locale: 'en') }} tenure
+                                    </small>
                                 {% endif %}
-                                <br>
-                                <small>
-                                    <em>{{ projectRole.startDate }}</em> to <em>{{ projectRole.endDate ?? "present" }}
-                                </small>
+                            </td>
+                            <td>
+                                {{ _self.period(projectRole.startDate, projectRole.endDate) }}
                             </td>
                             <td>{{ project.description }}</td>
                         </tr>
