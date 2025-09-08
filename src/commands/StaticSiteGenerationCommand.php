@@ -34,9 +34,20 @@ class StaticSiteGenerationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->generateIndex($output);
         $this->generateCV($output);
         $this->generatePosts($output);
         return Command::SUCCESS;
+    }
+
+    private function generateIndex(OutputInterface $output): void
+    {
+        $template = $this->twig->load('index.html.twig');
+        $rendered = $template->render();
+
+        $this->files->write($_ENV['INDEX_FILE'], $rendered);
+
+        $output->writeln("Generated main page.");
     }
 
     private function generateCV(OutputInterface $output): void

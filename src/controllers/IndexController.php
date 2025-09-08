@@ -9,10 +9,14 @@ use tthe\framework\FileManager;
 
 class IndexController
 {
+    use HttpSupportTrait;
+
     #[Route('/', name: 'index')]
     function __invoke(Request $request, FileManager $files): Response
     {
         $index = $files->read($_ENV['INDEX_FILE']);
-        return new Response($index);
+        $response = new Response($index);
+        $this->cacheHeaders($request, $response);
+        return $response;
     }
 }
