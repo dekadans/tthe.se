@@ -253,7 +253,7 @@
       "@type": "Certification",
       "name": "Azure Developer Associate",
       "validFrom": "2023-11-28",
-      "expires": "2025-11-29",
+      "expires": "2026-11-29",
       "issuedBy": {
         "@type": "Organization",
         "name": "Microsoft"
