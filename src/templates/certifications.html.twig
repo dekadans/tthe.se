@@ -7,7 +7,7 @@
             <th>Issuer</th>
             <th>Name</th>
             <th>Issued</th>
-            <th>Expires</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
@@ -16,7 +16,15 @@
                 <td>{{ cert.issuedBy.name }}</td>
                 <td>{{ cert.name }}</td>
                 <td>{{ cert.validFrom }}</td>
-                <td>{{ cert.expires }}</td>
+                <td>
+                    <span data-tooltip="{{ cert.expires ? "Expiration " ~ cert.expires : "No expiration" }}">
+                        {% if cert.expires and date(cert.expires) < date() %}
+                            🔴
+                        {% else %}
+                            🟢
+                        {% endif %}
+                    </span>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
