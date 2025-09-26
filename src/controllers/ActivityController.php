@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use tthe\services\film\FilmJsonLDSerializer;
 use tthe\services\film\FilmService;
 
 class ActivityController
@@ -27,22 +28,12 @@ class ActivityController
     #[Route('/activity/film/json', name: 'film-json')]
     public function film_json(): JsonResponse
     {
-        /*
-         * Just a draft!
-         */
         $films = new FilmService();
         $films->load();
-        $list = [];
+        $list = FilmJsonLDSerializer::make(array_slice($films->activity(), 0, 100));
 
-        foreach ($films->feed as $item) {
-            $list[] = $item->getXpath()->evaluate(
-                'string(' . $item->getXpathPrefix() . '/letterboxd:filmTitle)'
-            );
-        }
-
-        $list = array_filter($list);
-
-        return (new JsonResponse($list))->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+        return (new JsonResponse($list))
+            ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     #[Route('/activity/book', name: 'book')]
