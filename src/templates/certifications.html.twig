@@ -17,13 +17,17 @@
                 <td>{{ cert.name }}</td>
                 <td>{{ cert.validFrom }}</td>
                 <td>
-                    <span data-tooltip="{{ cert.expires ? "Expiration " ~ cert.expires : "No expiration" }}">
-                        {% if cert.expires and date(cert.expires) < date() %}
-                            🔴
-                        {% else %}
-                            🟢
-                        {% endif %}
-                    </span>
+                    {% if cert.expires and date(cert.expires) < date() %}
+                        <label>
+                            <input type="checkbox" aria-invalid="true" disabled>
+                            <span data-tooltip="{{ "Expired " ~ cert.expires }}">Expired</span>
+                        </label>
+                    {% else %}
+                        <label>
+                            <input type="checkbox" aria-invalid="false" disabled checked>
+                            <span data-tooltip="{{ cert.expires ? "Expires " ~ cert.expires : "No expiration" }}">Active</span>
+                        </label>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
