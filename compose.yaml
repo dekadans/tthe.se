@@ -1,0 +1,13 @@
+# Simple Docker Compose setup for basic use cases.
+# Overridden with development environment settings from compose.override.yaml
+# or production settings from compose.prod.yaml
+services:
+  server:
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
+

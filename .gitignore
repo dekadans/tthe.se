@@ -1,0 +1,10 @@
+# Bagatelle exclusions
+/vendor
+/node_modules
+/.idea
+/.vscode
+/var
+.DS_Store
+Thumbs.db
+/.env
+/.php-cs-fixer.cache

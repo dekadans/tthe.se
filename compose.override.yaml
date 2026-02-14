@@ -1,0 +1,12 @@
+# Development environment overrides.
+services:
+  server:
+    build:
+      context: .
+      target: dev
+    ports:
+      - '8080:80'
+    volumes:
+      - ./:/app
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-localhost:80}

@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Error!{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <style>
+        pre code {
+            font-size: 0.75rem;
+            color: #e2e8f0;
+        }
+        pre {
+            background: #2d3748;
+            overflow-x: auto;
+            border: 1px solid #4a5568;
+        }
+
+        .error-type {
+            color: #fc8181;
+            font-weight: 600;
+        }
+
+        .file-path {
+            color: #90cdf4;
+        }
+
+        .line-number {
+            color: #fbd38d;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong>An error has occurred</strong></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section>
+            <h1>{{ title }}</h1>
+            <p>{{ message }}</p>
+        </section>
+        {% if exception %}
+            <hr>
+            <section>
+                <h2>Exception Details</h2>
+                <pre><code>
+{%- for ex in exception %}
+<span class="error-type">{{ ex.class }}</span>
+{% if ex.message -%} {{ ex.message }} {%- endif %}
+
+
+<span class="error-type">Stack trace:</span>
+{% for trace in ex.trace %}
+    at <span class="file-path">{{ trace.file }}</span>:<span class="line-number">{{ trace.line }}</span>
+    {{ trace.function }}
+{% endfor %}
+
+<hr>
+{% endfor %}
+            </code></pre>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}
