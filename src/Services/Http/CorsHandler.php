@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Http;
 
-use App\Services\Routing\AbstractMiddleware;
+use App\Services\Routing\Middleware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
  * See WHATWG standard at https://fetch.spec.whatwg.org/#http-cors-protocol
  * Apply to routes or controllers using the #[CORS] attribute.
  */
-class CorsHandler extends AbstractMiddleware
+class CorsHandler extends Middleware
 {
     /**
      * Process inbound request.

@@ -8,12 +8,13 @@ declare(strict_types=1);
  * Uses PHP-DI by default: https://php-di.org/
  */
 
-use App\Commands\ExampleCommand;
+use App\Commands\RoutesCommand;
 use DI\ContainerBuilder;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Psr\Log\LogLevel;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 
 use function DI\autowire;
@@ -46,6 +47,30 @@ $containerBuilder->addDefinitions([
         return new Logger('bagatelle-http', [$handler], [new PsrLogMessageProcessor()]);
     },
 
+    // Overrides default logging for certain exceptions.
+    // Specifically lowers the criticality for some HTTP client errors.
+    // These exceptions can be used as responses to requests, without polluting the error log.
+    'app.http.logger.exceptions' => function () {
+        $exceptions = [
+            \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class, // 400
+            \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException::class, // 401
+            \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException::class, // 403
+            \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class, // 404
+            \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException::class, // 405
+            \Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException::class, // 406
+            \Symfony\Component\HttpKernel\Exception\ConflictHttpException::class, // 409
+            \Symfony\Component\HttpKernel\Exception\GoneHttpException::class, // 410
+            \Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException::class, // 415
+            \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException::class, // 422
+        ];
+
+        return array_fill_keys($exceptions, [
+            'log_level' => LogLevel::NOTICE,
+            'status_code' => null,
+            'log_channel' => null,
+        ]);
+    },
+
     // --- Console Application Configuration
 
     // The name of the console application.
@@ -54,7 +79,7 @@ $containerBuilder->addDefinitions([
     // Console commands. Add your command implementation classes here.
     'app.console.commands' => [
         // NOTE: Only add class names, not container references or instances.
-        ExampleCommand::class,
+        RoutesCommand::class,
     ],
 
     // Console application event subscribers.
@@ -80,7 +105,7 @@ $containerBuilder->addDefinitions([
     \App\Controllers\IndexController::class => autowire(),
     \App\Controllers\ErrorController::class => autowire(),
 
-    ExampleCommand::class => autowire(),
+    RoutesCommand::class => autowire(),
 ]);
 
 /*

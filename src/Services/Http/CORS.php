@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Http;
 
+use App\Services\Routing\Middleware;
 use App\Services\Routing\RouteDecoratorInterface;
 use Symfony\Component\Routing\Route;
 
 /**
  * Attribute for configuring Cross-origin resource sharing (CORS) for a route or controller.
+ * Configure CORS access control using arguments to the attribute, or globally in the .env file.
  */
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class CORS implements RouteDecoratorInterface
@@ -35,12 +37,13 @@ class CORS implements RouteDecoratorInterface
         $this->headers = $headers ?? $this->env('CORS_ALLOW_HEADERS') ?? '*';
         $this->exposeHeaders = $exposeHeaders ?? $this->env('CORS_EXPOSE_HEADERS') ?? '';
         $this->credentials = (bool) ($credentials ?? $_ENV['CORS_ALLOW_CREDENTIALS'] ?? false);
-        $this->maxAge = $maxAge;
+        $this->maxAge = $maxAge ?? (isset($_ENV['CORS_MAX_AGE']) ? intval($_ENV['CORS_MAX_AGE']) : null);
     }
 
     public function decorate(Route $route): void
     {
-        $route->getDefault('_middleware')->push(CorsHandler::class);
+        Middleware::add($route, CorsHandler::class);
+
         $route->setDefault('_cors', [
             'allow_origin' => $this->origin,
             'allow_methods' => $this->methods,

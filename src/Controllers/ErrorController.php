@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,34 +23,17 @@ readonly class ErrorController
     public function __invoke(Request $request, FlattenException $exception): Response
     {
         $exceptionDetails = (bool) $_ENV["ERROR_DETAILS"];
+        $format = $request->getPreferredFormat();
 
-        $contentType = $this->negotiateContentType($request);
-
-        if (str_contains($contentType, 'json')) {
+        if (in_array($format, ['problem', 'json'])) {
             $data = $this->asJSON($exception, $exceptionDetails);
             return new JsonResponse($data, headers: [
-                'Content-Type' => $contentType,
+                'Content-Type' => $request->getMimeType($format),
             ]);
         } else {
             $data = $this->asHTML($exception, $exceptionDetails);
             return new Response($data);
         }
-    }
-
-    private function negotiateContentType(Request $request): string
-    {
-        $acceptable = [
-            'text/html',
-            'application/problem+json',
-            'application/json',
-        ];
-        $acceptHeader = AcceptHeader::fromString(
-            $request->headers->get('Accept') ?? '*/*'
-        );
-        $quality = fn($type) => $acceptHeader->get($type)?->getQuality() ?? 0;
-
-        usort($acceptable, fn($a, $b) => $quality($b) <=> $quality($a));
-        return $acceptable[0];
     }
 
     private function getUserMessage(FlattenException $exception): string

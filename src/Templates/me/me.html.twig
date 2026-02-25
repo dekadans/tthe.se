@@ -1,0 +1,121 @@
+{% extends "base.html.twig" %}
+
+{% block title %}tthe.se/me{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <style>
+        ul.clean-list > li {
+            list-style: none;
+        }
+        ul.clean-list {
+            padding-left: 0;
+        }
+        article {
+            margin: 1.5rem 0;
+        }
+        hr {
+            margin: 3rem 0;
+        }
+        @media print {
+            hr, .no-print {
+                display: none;
+            }
+            section, article {
+                break-inside: avoid;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <header class="container no-print">
+        <nav aria-label="breadcrumb">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li>CV</li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        {% import "me/macros.html.twig" as macros %}
+
+        <div class="grid">
+            <div>
+                <ul class="clean-list">
+                    <li><strong>Name:</strong> {{ givenName }} {{ familyName }}</li>
+                    <li><strong>Location:</strong> {{ address.addressLocality }}, {{ address.addressCountry.name }}</li>
+                    <li><strong>Languages:</strong> {{ knowsLanguage|map(l => l.name)|join(', ') }}</li>
+                    <li><strong>Web presence:</strong>
+                        <ul>
+                            {% for link in sameAs %}
+                                <li>{{ macros.url(link) }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <details>
+                    <summary role="button" class="outline">What is this?</summary>
+                    <article>
+                        <p>
+                            This is my master list of what I've done in my professional life, for my own convenience of having it all in one place.
+                        </p>
+                        <p class="no-print">This document is generated from JSON-LD data available through <code>Accept: application/ld+json</code>.</p>
+                    </article>
+                </details>
+                <details>
+                    <summary role="button" class="outline">Index</summary>
+                    <article>
+                        <aside>
+                            <nav>
+                                <ul>
+                                    <li><a href="#work-history">Work History</a></li>
+                                    <li><a href="#alma-mater">Almae Matres</a></li>
+                                    <li><a href="#volunteering">Volunteering</a></li>
+                                    <li><a href="#speaking">Public Speaking</a></li>
+                                    <li><a href="#certifications">Professional Certifications</a></li>
+                                    <li><a href="#credentials">Educational Credentials</a></li>
+                                </ul>
+                            </nav>
+                        </aside>
+
+                    </article>
+                </details>
+            </div>
+        </div>
+        <hr>
+
+        <section>
+            <h3 id="work-history">Work History</h3>
+            {% for role in worksFor %}
+                {{ macros.role(role, "worksFor") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        <section>
+            <h3 id="alma-mater">Almae Matres</h3>
+            {% for role in alumniOf %}
+                {{ macros.role(role, "alumniOf") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        <section>
+            <h3 id="volunteering">Volunteering</h3>
+            {% for role in affiliation %}
+                {{ macros.role(role, "affiliation") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        {{ include('me/events.html.twig') }}
+
+        {{ include('me/certifications.html.twig') }}
+
+        {{ include('me/credentials.html.twig') }}
+    </main>
+
+{% endblock %}

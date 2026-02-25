@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Controllers\ErrorController;
 use App\Services\Routing\DecoratedControllerLoader;
-use App\Services\Routing\RouteEventSubscriber;
+use App\Services\Routing\MiddlewareHandler;
 use Monolog\Handler\StreamHandler;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Container\ContainerInterface;
@@ -46,6 +46,7 @@ use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 use Twig\Environment as Twig;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader as TwigFilesystemLoader;
 
 use function DI\create;
@@ -99,7 +100,9 @@ return [
         }
         $templateDir = __DIR__ . '/../src/Templates';
         $options = ['cache' => $cacheDir ?? false];
-        return new Twig(new TwigFilesystemLoader($templateDir), $options);
+        $twig = new Twig(new TwigFilesystemLoader($templateDir), $options);
+        $twig->addExtension(new IntlExtension());
+        return $twig;
     },
 
     // Routing
@@ -126,13 +129,15 @@ return [
         create(HttpErrorListener::class)
             ->constructor(
                 ErrorController::class,
-                get(LoggerInterface::class)
+                get(LoggerInterface::class),
+                false,
+                get('app.http.logger.exceptions')
             ),
         create(PsrResponseListener::class)
             ->constructor(
                 get(HttpFoundationFactoryInterface::class)
             ),
-        create(RouteEventSubscriber::class)
+        create(MiddlewareHandler::class)
             ->constructor(
                 get(ContainerInterface::class)
             ),

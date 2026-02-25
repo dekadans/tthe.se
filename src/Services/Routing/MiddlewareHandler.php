@@ -12,14 +12,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Turns Symfony's native lifecycle events into a simple middleware-esque solution.
  */
-readonly class RouteEventSubscriber implements EventSubscriberInterface
+readonly class MiddlewareHandler implements EventSubscriberInterface
 {
     public function __construct(private ContainerInterface $container) {}
 
     public function handleRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        foreach ($this->getRouteMiddleware($request) as $middleware) {
+        foreach ($this->getMiddleware($request) as $middleware) {
             $maybeResponse = $middleware->inbound($request);
             if ($maybeResponse) {
                 $event->setResponse($maybeResponse);
@@ -30,22 +30,19 @@ readonly class RouteEventSubscriber implements EventSubscriberInterface
     public function handleResponse(ResponseEvent $event): void
     {
         $request = $event->getRequest();
-        foreach ($this->getRouteMiddleware($request) as $middleware) {
-            $middleware->outbound($request, $event->getResponse());
+        $response = $event->getResponse();
+        foreach ($this->getMiddleware($request) as $middleware) {
+            $middleware->outbound($request, $response);
         }
     }
 
     /**
      * @param Request $request
-     * @return \Generator<AbstractMiddleware>
+     * @return Middleware[]
      */
-    private function getRouteMiddleware(Request $request): \Generator
+    private function getMiddleware(Request $request): array
     {
-        /** @var \SplPriorityQueue $routeMiddleware */
-        $routeMiddleware = $request->attributes->get('_middleware', []);
-        foreach ($routeMiddleware as $ref) {
-            yield $this->container->get($ref);
-        }
+        return Middleware::resolve($request, $this->container->get(...));
     }
 
     public static function getSubscribedEvents(): array
