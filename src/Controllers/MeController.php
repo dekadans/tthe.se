@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Symfony\Component\Config\FileLocatorInterface;
+use App\Services\Site\CvService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,29 +13,24 @@ class MeController
 {
     public function __construct(
         private Twig $view,
-        private FileLocatorInterface $fileLocator
+        private CvService $cv
     ) {}
 
     #[Route('/me', name: 'me', methods: ['GET'])]
     public function __invoke(Request $request): Response
     {
-        $data = $this->getData();
-
-        if ($request->getPreferredFormat() === 'jsonld') {
-            return new JsonResponse($data, headers: [
+        if (in_array($request->getPreferredFormat(), ['jsonld', 'json'])) {
+            $response = new JsonResponse($this->cv->data, headers: [
                 'Content-Type' => 'application/ld+json',
             ]);
         } else {
-            $html = $this->view->render('me/me.html.twig', $data);
-            return new Response($html);
+            $html = $this->view->render('me/me.html.twig', $this->cv->data);
+            $response = new Response($html);
         }
-    }
 
-    // Move to service
-    private function getData(): array
-    {
-        $path = $this->fileLocator->locate('data/me.jsonld');
-        $content = file_get_contents($path);
-        return json_decode($content, associative: true);
+        $response->setEtag($this->cv->hash, true);
+        $response->isNotModified($request);
+
+        return $response;
     }
 }
