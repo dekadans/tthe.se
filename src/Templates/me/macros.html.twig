@@ -1,5 +1,5 @@
 {% macro url(url, text = null) %}
-    <a href="{{ url }}">{{ text ?? url }}</a>
+    <a href="{{ url }}">{{ text ?? (url | replace({'https://': '', 'www.': ''}) | split('/') | first) }}</a>
 {% endmacro %}
 
 {% macro period(startDate, endDate) %}
@@ -34,7 +34,7 @@
                         {{ role[attribute].alternateName }} &mdash;
                     {% endif %}
                     {{ role[attribute].location }} &mdash;
-                    {{ _self.url(role[attribute].sameAs, "Website") }}
+                    {{ _self.url(role[attribute].sameAs) }}
                 </small>
             </p>
 

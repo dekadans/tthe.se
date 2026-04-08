@@ -136,7 +136,7 @@
         "name": "Varbi",
         "location": "Trollhättan",
         "sameAs": "https://www.grade.com",
-        "description": "Varbi has since merged with the company Grade."
+        "description": "Varbi merged with Grade in 2021, which in turn merged with Talentech in 2025."
       },
       "startDate": "2016-08-01",
       "endDate": "2022-06-23",
@@ -199,30 +199,6 @@
       "startDate": "2025-02-23",
       "roleName": "Webmaster",
       "description": ""
-    }
-  ],
-  "performerIn": [
-    {
-      "@type": "Event",
-      "name": "Supercharging AI Agents with the OpenAI Responses API",
-      "startDate": [
-        "2025-10-23"
-      ]
-    },
-    {
-      "@type": "Event",
-      "name": "AI Agents & Model Context Protocol: Smarter Context-Aware AI",
-      "startDate": [
-        "2025-04-22"
-      ]
-    },
-    {
-      "@type": "Event",
-      "name": "How to create the APIs of the future using ideas from the 90's",
-      "startDate": [
-        "2023-10-25",
-        "2024-10-10"
-      ]
     }
   ],
   "hasCertification": [
