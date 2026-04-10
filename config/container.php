@@ -80,6 +80,7 @@ $containerBuilder->addDefinitions([
     'app.console.commands' => [
         // NOTE: Only add class names, not container references or instances.
         RoutesCommand::class,
+        \App\Commands\ActivityCommand::class,
     ],
 
     // Console application event subscribers.
