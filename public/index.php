@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Application;
+use tthe\Bagatelle\Application;
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+$appRoot = dirname(__DIR__);
 
-(new Application()->http)();
+require_once $appRoot . '/vendor/autoload.php';
+
+(new Application($appRoot)->http)();

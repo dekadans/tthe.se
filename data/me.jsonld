@@ -41,7 +41,17 @@
         "subOrganization": [
           {
             "@type": "OrganizationRole",
+            "startDate": "2026-07-20",
+            "subOrganization": {
+              "@type": "Project",
+              "name": "Parental Leave",
+              "description": ""
+            }
+          },
+          {
+            "@type": "OrganizationRole",
             "startDate": "2025-08-25",
+            "endDate": "2026-06-18",
             "numberedPosition": "2",
             "subOrganization": {
               "@type": "Project",
@@ -236,7 +246,7 @@
       "@type": "Certification",
       "name": "Azure Developer Associate",
       "validFrom": "2023-11-28",
-      "expires": "2026-11-29",
+      "expires": "2027-11-29",
       "issuedBy": {
         "@type": "Organization",
         "name": "Microsoft"

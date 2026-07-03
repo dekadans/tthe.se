@@ -8,7 +8,8 @@ declare(strict_types=1);
  * Uses PHP-DI by default: https://php-di.org/
  */
 
-use App\Commands\RoutesCommand;
+use App\Controllers\ErrorController;
+use App\Controllers\IndexController;
 use DI\ContainerBuilder;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
@@ -18,8 +19,16 @@ use Psr\Log\LogLevel;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 
 use function DI\autowire;
+use function DI\decorate;
 
 $containerBuilder = new ContainerBuilder();
+
+/*
+ *
+ * Core Bagatelle configuration.
+ *
+ */
+$containerBuilder->addDefinitions(tthe\Bagatelle\Config\DefaultConfiguration::all());
 
 /*
  *
@@ -27,6 +36,8 @@ $containerBuilder = new ContainerBuilder();
  *
  */
 $containerBuilder->addDefinitions([
+    'app.root' => dirname(__DIR__),
+
     // Default application timezone.
     // Set to one from https://www.php.net/manual/en/timezones.php
     'app.timezone' => 'UTC',
@@ -36,56 +47,31 @@ $containerBuilder->addDefinitions([
     // HTTP request event subscribers.
     'app.http.subscribers' => [
         // Add Symfony event subscribers through container references, for example:
-        // autowire(App\Events\SomeEventSubscriber:class)
+        // autowire(\App\Events\SomeEventSubscriber::class)
         // They'll be automatically registered with the event dispatcher.
     ],
 
     // PSR-3 logger implementation for HTTP application.
     'app.http.logger' => function (StreamHandler $handler) {
-        // StreamHandler comes configured values from .env variables LOG_STREAM and LOG_LEVEL.
+        // StreamHandler comes configured with values from .env variables LOG_STREAM and LOG_LEVEL.
         $handler->setFormatter(new JsonFormatter());
         return new Logger('bagatelle-http', [$handler], [new PsrLogMessageProcessor()]);
     },
 
-    // Overrides default logging for certain exceptions.
-    // Specifically lowers the criticality for some HTTP client errors.
+    // Sets log level for exceptions representing 4xx status codes, in \Symfony\Component\HttpKernel\Exception\...
     // These exceptions can be used as responses to requests, without polluting the error log.
-    'app.http.logger.exceptions' => function () {
-        $exceptions = [
-            \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class, // 400
-            \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException::class, // 401
-            \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException::class, // 403
-            \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class, // 404
-            \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException::class, // 405
-            \Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException::class, // 406
-            \Symfony\Component\HttpKernel\Exception\ConflictHttpException::class, // 409
-            \Symfony\Component\HttpKernel\Exception\GoneHttpException::class, // 410
-            \Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException::class, // 415
-            \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException::class, // 422
-        ];
+    'app.http.logger.client-errors' => LogLevel::NOTICE,
 
-        return array_fill_keys($exceptions, [
-            'log_level' => LogLevel::NOTICE,
-            'status_code' => null,
-            'log_channel' => null,
-        ]);
-    },
+    'app.http.error-handler' => ErrorController::class,
 
     // --- Console Application Configuration
 
     // The name of the console application.
-    'app.console.name' => 'Example Console Application',
-
-    // Console commands. Add your command implementation classes here.
-    'app.console.commands' => [
-        // NOTE: Only add class names, not container references or instances.
-        RoutesCommand::class,
-        \App\Commands\ActivityCommand::class,
-    ],
+    'app.console.name' => 'Bagatelle Console Application',
 
     // Console application event subscribers.
     'app.console.subscribers' => [
-        // ...
+        // autowire(\App\Events\SomeEventSubscriber::class)
     ],
 
     // PSR-3 logger implementation for console application.
@@ -103,10 +89,8 @@ $containerBuilder->addDefinitions([
     // Adding autowire definitions here is not necessary to make it work,
     // however, it will improve performance when using a compiled container in production.
 
-    \App\Controllers\IndexController::class => autowire(),
-    \App\Controllers\ErrorController::class => autowire(),
-
-    RoutesCommand::class => autowire(),
+    IndexController::class => autowire(),
+    ErrorController::class => autowire(),
 ]);
 
 /*
@@ -118,14 +102,40 @@ $containerBuilder->addDefinitions([
     // The bundled dependency injection container autowires dependencies when possible, but here you can explicitly
     // define your services when needed, like when there's dependencies on interfaces. For example:
     // App\Services\EncabulationInterface::class => autowire(App\Services\TurboEncabulator::class)
+
+    \Twig\Environment::class => decorate(function(\Twig\Environment $twig) {
+        $twig->addExtension(new \Twig\Extra\Intl\IntlExtension());
+        return $twig;
+    })
 ]);
 
-// Add the core Bagatelle configuration.
-$containerBuilder->addDefinitions(__DIR__ . '/core.php');
+/*
+ *
+ * Bagatelle Middleware
+ *
+ */
+$containerBuilder->addDefinitions([
+    // Default configuration for the CORS middleware. Overridden by arguments passed to CORS attribute.
+    // Allow origins and headers using a wildcard string, '*', or an array of allowed values.
+    // Allowed methods always defaults to what the route accepts, unless overridden by attribute argument.
+    'bagatelle.http.middleware.cors' => [
+        'allow_origin' => '*',
+        'allow_headers' => '*',
+        'expose_headers' => [],
+        'allow_credentials' => false,
+        'max_age' => 600,
+    ],
+
+    // Default authentication implementation, reading username and password from environment variables.
+    // Used by the BasicAuth middleware.
+    // Reimplement this for your user storage solution of choice.
+    \tthe\Bagatelle\Auth\AuthenticatorInterface::class => autowire(\tthe\Bagatelle\Auth\EnvironmentAuthenticator::class)
+        ->constructor(['BASIC_AUTH_USER' => 'BASIC_AUTH_PASSWORD'])
+]);
 
 // If configured, we set the container to compile down to set instructions.
-if (!empty($_ENV['DI_CACHE_DIR'])) {
-    $containerBuilder->enableCompilation(__DIR__ . '/../' . $_ENV['DI_CACHE_DIR']);
+if (!empty($_ENV['CACHE_CONTAINER'])) {
+    $containerBuilder->enableCompilation(__DIR__ . '/../' . $_ENV['CACHE_CONTAINER']);
 }
 
 // This file can return any object implementing the PSR-11 ContainerInterface,

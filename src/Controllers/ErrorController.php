@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use tthe\Bagatelle\Error\ExceptionProblem;
 use Twig\Environment as Template;
 
 /**
@@ -22,75 +22,21 @@ readonly class ErrorController
 
     public function __invoke(Request $request, FlattenException $exception): Response
     {
-        $exceptionDetails = (bool) $_ENV["ERROR_DETAILS"];
-        $format = $request->getPreferredFormat();
+        $exceptionDetails = ($_ENV["APP_ENV"] ?? '') === 'dev';
+        $problem = new ExceptionProblem($exception, $exceptionDetails);
 
-        if (in_array($format, ['problem', 'json'])) {
-            $data = $this->asJSON($exception, $exceptionDetails);
-            return new JsonResponse($data, headers: [
-                'Content-Type' => $request->getMimeType($format),
-            ]);
+        if (in_array($request->getPreferredFormat(), ['problem', 'json'])) {
+            $response = $problem->toResponse();
         } else {
-            $data = $this->asHTML($exception, $exceptionDetails);
-            return new Response($data);
-        }
-    }
-
-    private function getUserMessage(FlattenException $exception): string
-    {
-        return $exception->getStatusCode() < 500
-            ? $exception->getMessage()
-            : 'An error occurred when processing the request.';
-    }
-
-    private function asHTML(FlattenException $exception, bool $details): string
-    {
-        return $this->view->render('error.html.twig', [
-            'title' => $exception->getStatusCode() . ' ' . $exception->getStatusText(),
-            'message' => $this->getUserMessage($exception),
-            'exception' => $details ? $this->getExceptionArray($exception) : null,
-        ]);
-    }
-
-    private function asJSON(FlattenException $exception, bool $details): array
-    {
-        $data = [
-            'type' => 'about:blank',
-            'status' => $exception->getStatusCode(),
-            'title' => $exception->getStatusText(),
-            'detail' => $this->getUserMessage($exception),
-        ];
-
-        if ($details) {
-            $data['detail'] = $exception->getMessage();
-            $data['exceptions'] = $this->getExceptionArray($exception);
+            $html = $this->view->render('@bagatelle/error.html.twig', [
+                'title' => $problem->status . ' ' . $problem->title,
+                'message' => $problem->detail,
+                'exception' => $problem->extensions['exceptions'] ?? null,
+            ]);
+            $response = new Response($html);
         }
 
-        return $data;
-    }
-
-    private function getExceptionArray(FlattenException $exception): array
-    {
-        $data = [];
-        foreach ($exception->toArray() as $ex) {
-            $filtered = array_filter(
-                $ex,
-                fn($key) => in_array($key, ['class', 'trace', 'message']),
-                ARRAY_FILTER_USE_KEY
-            );
-            $filtered['trace'] = array_map(
-                function ($tr) {
-                    return [
-                        'file' => $tr['file'],
-                        'line' => $tr['line'],
-                        'function' => $tr['class'] . $tr['type'] . $tr['function'] . ($tr['function'] ? '()' : ''),
-                    ];
-                },
-                $filtered['trace']
-            );
-            $data[] = $filtered;
-        }
-
-        return $data;
+        $response->headers->set('Vary', 'Accept');
+        return $response;
     }
 }
