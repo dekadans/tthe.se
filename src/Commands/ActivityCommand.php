@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use Google\Client;
 use Google\Service\Sheets;
+use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -11,6 +12,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('activity')]
 class ActivityCommand extends Command
 {
+    public function __construct(private FileLocatorInterface $locator)
+    {
+        parent::__construct();
+    }
+
     public function __invoke(SymfonyStyle $io): int
     {
         $io->text($this->testBooks());
@@ -20,7 +26,8 @@ class ActivityCommand extends Command
     private function testBooks()
     {
         $client = new Client();
-        $client->setAuthConfig(__DIR__ . '/../../var/google-key.json');
+        $key = $this->locator->locate($_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
+        $client->setAuthConfig($key);
         $client->addScope(Sheets::SPREADSHEETS_READONLY);
 
         try {

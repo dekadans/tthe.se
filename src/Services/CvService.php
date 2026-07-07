@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Site;
+namespace App\Services;
 
 use Symfony\Component\Config\FileLocatorInterface;
 

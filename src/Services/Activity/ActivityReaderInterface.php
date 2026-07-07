@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Site\Activity;
+namespace App\Services\Activity;
 
 interface ActivityReaderInterface
 {

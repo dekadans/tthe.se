@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Site\Activity;
+namespace App\Services\Activity;
 
 readonly class Activity implements \JsonSerializable
 {
     public function __construct(
         public Type $type,
         public string $title,
-        public string $url,
+        public string $uri,
+        public \DateTimeImmutable $timestamp,
         public array $attributes,
     ) {}
 
@@ -16,7 +17,8 @@ readonly class Activity implements \JsonSerializable
         return [
             'type' => $this->type->name,
             'title' => $this->title,
-            'url' => $this->url,
+            'uri' => $this->uri,
+            'timestamp' => $this->timestamp->format('c'),
             'attributes' => $this->attributes,
         ];
     }

@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Services\Site\CvService;
+use App\Services\CvService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use tthe\Bagatelle\Http\Attribute\Get;
 use Twig\Environment as Twig;
 
 class MeController
@@ -16,7 +16,7 @@ class MeController
         private CvService $cv
     ) {}
 
-    #[Route('/me', name: 'me', methods: ['GET'])]
+    #[Get('/me', 'me')]
     public function html(Request $request): Response
     {
         $html = $this->view->render('me/me.html.twig', $this->cv->data);
@@ -25,7 +25,7 @@ class MeController
         return $this->setCache($request, $response);
     }
 
-    #[Route('/me.json', name: 'me-json', methods: ['GET'])]
+    #[Get('/me.json', 'me-json')]
     public function json(Request $request): Response
     {
         $response = new JsonResponse($this->cv->data, headers: [
