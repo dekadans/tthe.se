@@ -2,9 +2,9 @@
 
 namespace App\Services\Activity;
 
-enum Type
+enum Type: string
 {
-    case CODE;
-    case FILM;
-    case BOOK;
+    case CODE = 'CODE';
+    case FILM = 'FILM';
+    case BOOK = 'BOOK';
 }

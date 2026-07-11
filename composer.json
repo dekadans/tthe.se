@@ -4,7 +4,8 @@
     "ext-intl": "*",
     "tthe/bagatelle-core": "^1.0",
     "twig/intl-extra": "^3.23",
-    "google/apiclient": "^2.19.0"
+    "google/apiclient": "^2.19.0",
+    "tthe/php-tag-scheme": "^1.1"
   },
   "autoload": {
     "psr-4": {

@@ -2,9 +2,7 @@
 
 namespace App\Commands;
 
-use Google\Client;
-use Google\Service\Sheets;
-use Symfony\Component\Config\FileLocatorInterface;
+use App\Services\Activity\ActivityReaderInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -12,30 +10,25 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('activity')]
 class ActivityCommand extends Command
 {
-    public function __construct(private FileLocatorInterface $locator)
+    public function __construct(private ActivityReaderInterface $bookActivity)
     {
         parent::__construct();
     }
 
     public function __invoke(SymfonyStyle $io): int
     {
-        $io->text($this->testBooks());
+        $this->testBooks($io);
         return Command::SUCCESS;
     }
 
-    private function testBooks()
+    private function testBooks(SymfonyStyle $io)
     {
-        $client = new Client();
-        $key = $this->locator->locate($_ENV['GOOGLE_APPLICATION_CREDENTIALS']);
-        $client->setAuthConfig($key);
-        $client->addScope(Sheets::SPREADSHEETS_READONLY);
-
         try {
-            $sheetsApi = new Sheets($client);
-            $sheetData = $sheetsApi->spreadsheets_values->get($_ENV['SPREADSHEET_ID'], $_ENV['SPREADSHEET_RANGE']);
-            [$title, $author, $year] = $sheetData->values[0];
+            $books = $this->bookActivity->read(50);
 
-            return $title;
+            foreach ($books as $book) {
+                $io->text(json_encode($book));
+            }
         } catch (\Throwable $exception) {
             return $exception->getMessage();
         }

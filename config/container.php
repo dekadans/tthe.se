@@ -15,11 +15,14 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 
 use function DI\autowire;
+use function DI\create;
 use function DI\decorate;
+use function DI\get;
 
 $containerBuilder = new ContainerBuilder();
 
@@ -40,7 +43,7 @@ $containerBuilder->addDefinitions([
 
     // Default application timezone.
     // Set to one from https://www.php.net/manual/en/timezones.php
-    'app.timezone' => 'UTC',
+    'app.timezone' => 'Europe/Stockholm',
 
     // --- HTTP Application Configuration
 
@@ -55,7 +58,7 @@ $containerBuilder->addDefinitions([
     'app.http.logger' => function (StreamHandler $handler) {
         // StreamHandler comes configured with values from .env variables LOG_STREAM and LOG_LEVEL.
         $handler->setFormatter(new JsonFormatter());
-        return new Logger('bagatelle-http', [$handler], [new PsrLogMessageProcessor()]);
+        return new Logger('tthe-http', [$handler], [new PsrLogMessageProcessor()]);
     },
 
     // Sets log level for exceptions representing 4xx status codes, in \Symfony\Component\HttpKernel\Exception\...
@@ -67,7 +70,7 @@ $containerBuilder->addDefinitions([
     // --- Console Application Configuration
 
     // The name of the console application.
-    'app.console.name' => 'Bagatelle Console Application',
+    'app.console.name' => 'tthe.se CLI',
 
     // Console application event subscribers.
     'app.console.subscribers' => [
@@ -76,7 +79,7 @@ $containerBuilder->addDefinitions([
 
     // PSR-3 logger implementation for console application.
     'app.console.logger' => function (ConsoleHandler $handler) {
-        return new Logger('bagatelle-cli', [$handler], [new PsrLogMessageProcessor()]);
+        return new Logger('tthe-cli', [$handler], [new PsrLogMessageProcessor()]);
     },
 ]);
 
@@ -91,6 +94,9 @@ $containerBuilder->addDefinitions([
 
     IndexController::class => autowire(),
     ErrorController::class => autowire(),
+
+    \App\Commands\ActivityCommand::class => create(\App\Commands\ActivityCommand::class)
+        ->constructor(get(\App\Services\Activity\BookActivityReader::class))
 ]);
 
 /*
@@ -99,14 +105,42 @@ $containerBuilder->addDefinitions([
  *
  */
 $containerBuilder->addDefinitions([
-    // The bundled dependency injection container autowires dependencies when possible, but here you can explicitly
-    // define your services when needed, like when there's dependencies on interfaces. For example:
-    // App\Services\EncabulationInterface::class => autowire(App\Services\TurboEncabulator::class)
-
     \Twig\Environment::class => decorate(function(\Twig\Environment $twig) {
         $twig->addExtension(new \Twig\Extra\Intl\IntlExtension());
         return $twig;
-    })
+    }),
+
+    \tthe\TagScheme\Contracts\TaggingEntityInterface::class => create(\tthe\TagScheme\TaggingEntity::class)
+        ->constructor('tthe.se', \tthe\TagScheme\Util\DateUtil::FIRST_OF_YEAR),
+
+    \App\Services\Activity\BookActivityReader::class => function(ContainerInterface $c) {
+        $locator = $c->get(\Symfony\Component\Config\FileLocatorInterface::class);
+        $logger = $c->get(\Psr\Log\LoggerInterface::class);
+        $tag = $c->get(\tthe\TagScheme\Contracts\TaggingEntityInterface::class);
+
+        $keyPath = $locator->locate($_ENV['ACTIVITY_BOOKS_KEY'] ?? '');
+        $apiClient = new \Google\Client();
+        $apiClient->setAuthConfig($keyPath);
+        $apiClient->addScope(\Google\Service\Sheets::SPREADSHEETS_READONLY);
+
+        if (!empty($_ENV['ACTIVITY_BOOKS_CACHE'])) {
+            $cache = __DIR__ . '/../' . $_ENV['ACTIVITY_BOOKS_CACHE'];
+        }
+
+        $options = [
+            'spreadsheet' => $_ENV['ACTIVITY_BOOKS_SHEET'] ?? '',
+            'range' => $_ENV['ACTIVITY_BOOKS_RANGE'] ?? '',
+            'cache' => $cache ?? null,
+            'ttl' => intval($_ENV['ACTIVITY_BOOKS_CACHE_TTL'] ?? '0'),
+        ];
+
+        return new \App\Services\Activity\BookActivityReader(
+            $logger,
+            $tag,
+            new \Google\Service\Sheets($apiClient),
+            $options
+        );
+    }
 ]);
 
 /*

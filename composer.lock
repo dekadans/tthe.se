@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd52710180f3bfab45918f34da16dfb0",
+    "content-hash": "888a71fc459049a1aab4d001a1bd0898",
     "packages": [
         {
             "name": "firebase/php-jwt",
@@ -3397,6 +3397,52 @@
                 "source": "https://github.com/dekadans/bagatelle-core/tree/v1.0.0"
             },
             "time": "2026-06-25T19:02:01+00:00"
+        },
+        {
+            "name": "tthe/php-tag-scheme",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dekadans/php-tag-scheme.git",
+                "reference": "fb783926111d77d92ac32f60af11bc329b3e2632"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dekadans/php-tag-scheme/zipball/fb783926111d77d92ac32f60af11bc329b3e2632",
+                "reference": "fb783926111d77d92ac32f60af11bc329b3e2632",
+                "shasum": ""
+            },
+            "require": {
+                "nyholm/psr7": "^1.8",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^2.19"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tthe\\TagScheme\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tomas Thelander",
+                    "email": "tomas@tthe.se",
+                    "homepage": "https://tthe.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP implementation of RFC 4151: The 'tag' URI Scheme",
+            "support": {
+                "issues": "https://github.com/dekadans/php-tag-scheme/issues",
+                "source": "https://github.com/dekadans/php-tag-scheme/tree/v1.1.0"
+            },
+            "time": "2023-10-22T11:26:21+00:00"
         },
         {
             "name": "twig/intl-extra",
