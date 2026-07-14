@@ -2,10 +2,12 @@
   "require": {
     "php": "^8.4",
     "ext-intl": "*",
+    "ext-simplexml": "*",
     "tthe/bagatelle-core": "^1.0",
     "twig/intl-extra": "^3.23",
     "google/apiclient": "^2.19.0",
-    "tthe/php-tag-scheme": "^1.1"
+    "tthe/php-tag-scheme": "^1.1",
+    "guzzlehttp/guzzle": "^7.13"
   },
   "autoload": {
     "psr-4": {
@@ -19,5 +21,8 @@
     "google/apiclient-services": [
       "Sheets"
     ]
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.95"
   }
 }

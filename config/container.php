@@ -15,7 +15,6 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
-use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 
@@ -95,8 +94,7 @@ $containerBuilder->addDefinitions([
     IndexController::class => autowire(),
     ErrorController::class => autowire(),
 
-    \App\Commands\ActivityCommand::class => create(\App\Commands\ActivityCommand::class)
-        ->constructor(get(\App\Services\Activity\BookActivityReader::class))
+    \App\Commands\ActivityCommand::class => autowire(),
 ]);
 
 /*
@@ -105,7 +103,7 @@ $containerBuilder->addDefinitions([
  *
  */
 $containerBuilder->addDefinitions([
-    \Twig\Environment::class => decorate(function(\Twig\Environment $twig) {
+    \Twig\Environment::class => decorate(function (\Twig\Environment $twig) {
         $twig->addExtension(new \Twig\Extra\Intl\IntlExtension());
         return $twig;
     }),
@@ -113,34 +111,55 @@ $containerBuilder->addDefinitions([
     \tthe\TagScheme\Contracts\TaggingEntityInterface::class => create(\tthe\TagScheme\TaggingEntity::class)
         ->constructor('tthe.se', \tthe\TagScheme\Util\DateUtil::FIRST_OF_YEAR),
 
-    \App\Services\Activity\BookActivityReader::class => function(ContainerInterface $c) {
-        $locator = $c->get(\Symfony\Component\Config\FileLocatorInterface::class);
-        $logger = $c->get(\Psr\Log\LoggerInterface::class);
-        $tag = $c->get(\tthe\TagScheme\Contracts\TaggingEntityInterface::class);
+    \Psr\Http\Client\ClientInterface::class => create(\GuzzleHttp\Client::class),
 
+    // Remove when added to Bagatelle
+    \Psr\Http\Message\RequestFactoryInterface::class => create(\Nyholm\Psr7\Factory\Psr17Factory::class),
+
+    \Google\Service\Sheets::class => function (\Symfony\Component\Config\FileLocatorInterface $locator) {
         $keyPath = $locator->locate($_ENV['ACTIVITY_BOOKS_KEY'] ?? '');
         $apiClient = new \Google\Client();
         $apiClient->setAuthConfig($keyPath);
         $apiClient->addScope(\Google\Service\Sheets::SPREADSHEETS_READONLY);
+        return new \Google\Service\Sheets($apiClient);
+    },
 
+    'app.activity.book.options' => function () {
         if (!empty($_ENV['ACTIVITY_BOOKS_CACHE'])) {
             $cache = __DIR__ . '/../' . $_ENV['ACTIVITY_BOOKS_CACHE'];
         }
 
-        $options = [
+        return [
             'spreadsheet' => $_ENV['ACTIVITY_BOOKS_SHEET'] ?? '',
             'range' => $_ENV['ACTIVITY_BOOKS_RANGE'] ?? '',
             'cache' => $cache ?? null,
             'ttl' => intval($_ENV['ACTIVITY_BOOKS_CACHE_TTL'] ?? '0'),
         ];
+    },
 
-        return new \App\Services\Activity\BookActivityReader(
-            $logger,
-            $tag,
-            new \Google\Service\Sheets($apiClient),
-            $options
-        );
-    }
+    \App\Services\Activity\BookActivityReader::class => autowire()
+        ->constructor(options: get('app.activity.book.options')),
+
+    'app.activity.film.options' => function () {
+        if (!empty($_ENV['ACTIVITY_FILM_CACHE'])) {
+            $cache = __DIR__ . '/../' . $_ENV['ACTIVITY_FILM_CACHE'];
+        }
+
+        return [
+            'url' => $_ENV['ACTIVITY_FILM_URL'] ?? '',
+            'cache' => $cache ?? null,
+            'ttl' => intval($_ENV['ACTIVITY_FILM_CACHE_TTL'] ?? '0'),
+        ];
+    },
+
+    \App\Services\Activity\FilmActivityReader::class => autowire()
+        ->constructor(options: get('app.activity.film.options')),
+
+    \App\Services\Activity\ActivityRepository::class => create()
+        ->constructor(
+            get(\App\Services\Activity\BookActivityReader::class),
+            get(\App\Services\Activity\FilmActivityReader::class)
+        ),
 ]);
 
 /*
@@ -164,7 +183,7 @@ $containerBuilder->addDefinitions([
     // Used by the BasicAuth middleware.
     // Reimplement this for your user storage solution of choice.
     \tthe\Bagatelle\Auth\AuthenticatorInterface::class => autowire(\tthe\Bagatelle\Auth\EnvironmentAuthenticator::class)
-        ->constructor(['BASIC_AUTH_USER' => 'BASIC_AUTH_PASSWORD'])
+        ->constructor(['BASIC_AUTH_USER' => 'BASIC_AUTH_PASSWORD']),
 ]);
 
 // If configured, we set the container to compile down to set instructions.
