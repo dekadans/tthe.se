@@ -9,21 +9,19 @@ class ActivityRepository
         private ActivityReaderInterface $filmActivity
     ) {}
 
-    /**
-     * @param int $limit
-     * @return Activity[]
-     */
-    public function books(int $limit): array
+    public function books(int $limit): ItemList
     {
-        return array_slice($this->bookActivity->read(), 0, $limit);
+        return new ItemList(
+            'Latest books read',
+            array_slice($this->bookActivity->read(), 0, $limit)
+        );
     }
 
-    /**
-     * @param int $limit
-     * @return Activity[]
-     */
-    public function films(int $limit): array
+    public function films(int $limit): ItemList
     {
-        return array_slice($this->filmActivity->read(), 0, $limit);
+        return new ItemList(
+            'Latest films watched',
+            array_slice($this->filmActivity->read(), 0, $limit)
+        );
     }
 }

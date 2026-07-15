@@ -20,38 +20,52 @@ class ActivityCommand extends Command
 
     public function __invoke(
         SymfonyStyle $io,
-        #[Argument('BOOK or FILM')]
+        #[Argument('The activity type: BOOK or FILM')]
         Type $type,
-        #[Argument]
+        #[Argument('The number of items to display.')]
         int $limit = 1
     ): int {
         if ($type === Type::BOOK) {
-            $this->testBooks($io, $limit);
+            $this->printBooks($io, $limit);
         } elseif ($type === Type::FILM) {
-            $this->testFilm($io, $limit);
+            $this->printFilms($io, $limit);
         }
         return Command::SUCCESS;
     }
 
-    private function testBooks(SymfonyStyle $io, int $limit)
+    private function printBooks(SymfonyStyle $io, int $limit): void
     {
-        try {
-            $books = $this->repository->books($limit);
+        $list = $this->repository->books($limit);
 
-            foreach ($books as $book) {
-                $io->text(json_encode($book));
-            }
-        } catch (\Throwable $exception) {
-            return $exception->getMessage();
-        }
+        $io->title($list->name);
+        $io->table(
+            ['Date', 'Title', 'Year', 'Author'],
+            array_map(function ($b) {
+                return [
+                    $b->timestamp->format('Y-m-d'),
+                    $b->title,
+                    $b->attributes['year'],
+                    $b->attributes['author'],
+                ];
+            }, $list->items),
+        );
     }
 
-    private function testFilm(SymfonyStyle $io, int $limit)
+    private function printFilms(SymfonyStyle $io, int $limit): void
     {
-        $films = $this->repository->films($limit);
+        $list = $this->repository->films($limit);
 
-        foreach ($films as $film) {
-            $io->text($film->title);
-        }
+        $io->title($list->name);
+        $io->table(
+            ['Date', 'Title', 'Year', 'Rating'],
+            array_map(function ($f) {
+                return [
+                    $f->timestamp->format('Y-m-d'),
+                    $f->title,
+                    $f->attributes['year'],
+                    $f->attributes['rating'],
+                ];
+            }, $list->items),
+        );
     }
 }
