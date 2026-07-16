@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Services\Activity;
+namespace App\Services\Activity\Readers;
 
+use App\Services\Activity\Activity;
+use App\Services\Activity\Type;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Log\LoggerInterface;

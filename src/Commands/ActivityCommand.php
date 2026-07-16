@@ -47,7 +47,7 @@ class ActivityCommand extends Command
                     $b->attributes['year'],
                     $b->attributes['author'],
                 ];
-            }, $list->items),
+            }, $list->toArray()),
         );
     }
 
@@ -65,7 +65,7 @@ class ActivityCommand extends Command
                     $f->attributes['year'],
                     $f->attributes['rating'],
                 ];
-            }, $list->items),
+            }, $list->toArray()),
         );
     }
 }

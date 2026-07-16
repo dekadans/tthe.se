@@ -17,7 +17,6 @@ use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LogLevel;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
-
 use function DI\autowire;
 use function DI\create;
 use function DI\decorate;
@@ -137,7 +136,7 @@ $containerBuilder->addDefinitions([
         ];
     },
 
-    \App\Services\Activity\BookActivityReader::class => autowire()
+    \App\Services\Activity\Readers\BookActivityReader::class => autowire()
         ->constructor(options: get('app.activity.book.options')),
 
     'app.activity.film.options' => function () {
@@ -152,13 +151,13 @@ $containerBuilder->addDefinitions([
         ];
     },
 
-    \App\Services\Activity\FilmActivityReader::class => autowire()
+    \App\Services\Activity\Readers\FilmActivityReader::class => autowire()
         ->constructor(options: get('app.activity.film.options')),
 
     \App\Services\Activity\ActivityRepository::class => create()
         ->constructor(
-            get(\App\Services\Activity\BookActivityReader::class),
-            get(\App\Services\Activity\FilmActivityReader::class)
+            get(\App\Services\Activity\Readers\BookActivityReader::class),
+            get(\App\Services\Activity\Readers\FilmActivityReader::class)
         ),
 ]);
 

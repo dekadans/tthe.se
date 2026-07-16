@@ -4,7 +4,7 @@ namespace App\Services\Activity;
 
 use Traversable;
 
-readonly class ItemList implements \IteratorAggregate
+readonly class ItemList implements \IteratorAggregate, \Countable
 {
     /**
      * @param string $name
@@ -12,7 +12,7 @@ readonly class ItemList implements \IteratorAggregate
      */
     public function __construct(
         public string $name,
-        public array $items
+        private array $items
     ) {}
 
     /**
@@ -21,5 +21,15 @@ readonly class ItemList implements \IteratorAggregate
     public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->items);
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
+    }
+
+    public function toArray(): array
+    {
+        return $this->items;
     }
 }

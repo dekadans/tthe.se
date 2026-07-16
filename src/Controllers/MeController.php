@@ -25,7 +25,7 @@ class MeController
         return $this->setCache($request, $response);
     }
 
-    #[Get('/me.json', 'me-json')]
+    #[Get('/me.jsonld', 'me-json')]
     public function json(Request $request): Response
     {
         $response = new JsonResponse($this->cv->data);

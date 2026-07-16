@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Services\Activity;
+namespace App\Services\Activity\Readers;
 
+use App\Services\Activity\Activity;
+use App\Services\Activity\Type;
 use Google\Service\Sheets;
 use Psr\Log\LoggerInterface;
 use tthe\TagScheme\Contracts\TaggingEntityInterface;

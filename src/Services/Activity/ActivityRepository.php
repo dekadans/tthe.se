@@ -2,6 +2,8 @@
 
 namespace App\Services\Activity;
 
+use App\Services\Activity\Readers\ActivityReaderInterface;
+
 class ActivityRepository
 {
     public function __construct(
