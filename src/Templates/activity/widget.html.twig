@@ -1,0 +1,34 @@
+<strong>
+    {{ list.name }}
+</strong>
+
+<aside>
+    <nav>
+        <ul>
+            {% for item in list %}
+                <li>
+                    {% if type === 'book' %}
+                        <span title="{{ item.timestamp | date('Y-m-d') }}">{{ item.title }}</span>
+                        <br><small>{{ item.attributes['year'] }} - {{ item.attributes['author'] }}</small>
+                    {% elseif type === 'film' %}
+                        <a href="{{ item.attributes['externalUri'] }}">
+                            <span title="{{ item.timestamp | date('Y-m-d') }}">{{ item.title }}</span>
+                        </a>
+                        <small>
+                            {{ item.attributes['year'] }}
+                            {% if item.attributes['rating'] %}
+                                -
+                                {% for i in range(1, item.attributes['rating']) -%}
+                                    ★
+                                {%- endfor %}
+                                {%- if item.attributes['rating'] matches '/\.5$/' -%}
+                                    ½
+                                {% endif %}
+                            {% endif %}
+                        </small>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</aside>
