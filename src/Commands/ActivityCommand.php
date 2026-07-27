@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Services\Activity\ActivityRepository;
+use App\Services\Activity\ItemList;
 use App\Services\Activity\Type;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -25,18 +26,20 @@ class ActivityCommand extends Command
         #[Argument('The number of items to display.')]
         int $limit = 1
     ): int {
+        $list = $this->repository->getForType($type, $limit);
+
         if ($type === Type::BOOK) {
-            $this->printBooks($io, $limit);
+            $this->printBooks($io, $list);
         } elseif ($type === Type::FILM) {
-            $this->printFilms($io, $limit);
+            $this->printFilms($io, $list);
+        } elseif ($type === Type::CODE) {
+            $this->printCode($io, $list);
         }
         return Command::SUCCESS;
     }
 
-    private function printBooks(SymfonyStyle $io, int $limit): void
+    private function printBooks(SymfonyStyle $io, ItemList $list): void
     {
-        $list = $this->repository->books($limit);
-
         $io->title($list->name);
         $io->table(
             ['Date', 'Title', 'Year', 'Author'],
@@ -51,10 +54,8 @@ class ActivityCommand extends Command
         );
     }
 
-    private function printFilms(SymfonyStyle $io, int $limit): void
+    private function printFilms(SymfonyStyle $io, ItemList $list): void
     {
-        $list = $this->repository->films($limit);
-
         $io->title($list->name);
         $io->table(
             ['Date', 'Title', 'Year', 'Rating'],
@@ -64,6 +65,21 @@ class ActivityCommand extends Command
                     $f->title,
                     $f->attributes['year'],
                     $f->attributes['rating'],
+                ];
+            }, $list->toArray()),
+        );
+    }
+
+    private function printCode(SymfonyStyle $io, ItemList $list): void
+    {
+        $io->title($list->name);
+        $io->table(
+            ['Date', 'Title', 'Language'],
+            array_map(function ($r) {
+                return [
+                    $r->timestamp->format('Y-m-d'),
+                    $r->title,
+                    $r->attributes['language'],
                 ];
             }, $list->toArray()),
         );

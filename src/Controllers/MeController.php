@@ -16,7 +16,7 @@ class MeController
         private CvService $cv
     ) {}
 
-    #[Get('/me.html', 'me')]
+    #[Get('/me', 'me')]
     public function html(Request $request): Response
     {
         $html = $this->view->render('me/me.html.twig', $this->cv->data);
@@ -25,7 +25,7 @@ class MeController
         return $this->setCache($request, $response);
     }
 
-    #[Get('/me', 'me-json')]
+    #[Get('/me.json', 'me-json')]
     public function json(Request $request): Response
     {
         $response = new JsonResponse($this->cv->data);

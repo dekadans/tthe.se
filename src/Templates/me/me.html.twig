@@ -32,8 +32,8 @@
     <header class="container no-print">
         <nav aria-label="breadcrumb">
             <ul>
-                <li><a href="/"><strong>Tomas Thelander</strong></a></li>
-                <li>CV</li>
+                <li><a href="/">tthe.se</a></li>
+                <li><strong>CV</strong></li>
             </ul>
         </nav>
     </header>
@@ -44,6 +44,7 @@
             <div>
                 <ul class="clean-list">
                     <li><strong>Name:</strong> {{ givenName }} {{ familyName }}</li>
+                    <li><strong>Age:</strong> {{ date().diff(date(birthDate)) | date('%y') }}</li>
                     <li><strong>Location:</strong> {{ address.addressLocality }}, {{ address.addressCountry.name }}</li>
                     <li><strong>Languages:</strong> {{ knowsLanguage|map(l => l.name)|join(', ') }}</li>
                     <li><strong>Web presence:</strong>
@@ -65,7 +66,7 @@
                         This is my master list of what I've done in my professional life, for my own convenience of having it all in one place.
                     </p>
                     <p class="no-print">
-                        This document is generated from <a href="/me">JSON-LD data</a>.
+                        This document is generated from <a href="/me.json">JSON-LD data</a>.
                     </p>
                 </article>
             </div>
@@ -77,6 +78,15 @@
             {% for role in worksFor %}
                 {{ macros.role(role, "worksFor") }}
             {% endfor %}
+
+            <section>
+                <h4 id="events">Leaves &amp; Other Events</h4>
+                <ul>
+                {% for event in lifeEvent %}
+                    <li>{{ event.name }} for {{ macros.period(event.startDate, event.endDate) }}</li>
+                {% endfor %}
+                </ul>
+            </section>
         </section>
         <hr>
 

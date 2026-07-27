@@ -1,9 +1,10 @@
 {
-  "@id": "https://tthe.se/me",
+  "@id": "https://tthe.se/me.json",
   "@context": "https://schema.org",
   "@type": "Person",
   "givenName": "Tomas",
   "familyName": "Thelander",
+  "birthDate": "1990-10-09",
   "url": "https://tthe.se",
   "sameAs": [
     "https://www.linkedin.com/in/tomasthelander/",
@@ -39,15 +40,6 @@
         "location": "Göteborg",
         "sameAs": "https://www.solita.fi",
         "subOrganization": [
-          {
-            "@type": "OrganizationRole",
-            "startDate": "2026-06-22",
-            "subOrganization": {
-              "@type": "Project",
-              "name": "Parental Leave",
-              "description": ""
-            }
-          },
           {
             "@type": "OrganizationRole",
             "startDate": "2025-08-25",
@@ -209,6 +201,19 @@
       "startDate": "2025-02-23",
       "roleName": "Webmaster",
       "description": ""
+    }
+  ],
+  "lifeEvent": [
+    {
+      "@type": "Event",
+      "name": "Parental leave (50%)",
+      "startDate": "2026-01-19",
+      "endDate": "2026-06-21"
+    },
+    {
+      "@type": "Event",
+      "name": "Parental leave (100%)",
+      "startDate": "2026-06-22"
     }
   ],
   "hasCertification": [

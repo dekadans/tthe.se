@@ -154,10 +154,26 @@ $containerBuilder->addDefinitions([
     \App\Services\Activity\Readers\FilmActivityReader::class => autowire()
         ->constructor(options: get('app.activity.film.options')),
 
+    'app.activity.code.options' => function () {
+        if (!empty($_ENV['ACTIVITY_CODE_CACHE'])) {
+            $cache = __DIR__ . '/../' . $_ENV['ACTIVITY_CODE_CACHE'];
+        }
+
+        return [
+            'url' => $_ENV['ACTIVITY_CODE_URL'] ?? '',
+            'cache' => $cache ?? null,
+            'ttl' => intval($_ENV['ACTIVITY_CODE_CACHE_TTL'] ?? '0'),
+        ];
+    },
+
+    \App\Services\Activity\Readers\CodeActivityReader::class => autowire()
+        ->constructor(options: get('app.activity.code.options')),
+
     \App\Services\Activity\ActivityRepository::class => create()
         ->constructor(
             get(\App\Services\Activity\Readers\BookActivityReader::class),
-            get(\App\Services\Activity\Readers\FilmActivityReader::class)
+            get(\App\Services\Activity\Readers\FilmActivityReader::class),
+            get(\App\Services\Activity\Readers\CodeActivityReader::class),
         ),
 ]);
 
