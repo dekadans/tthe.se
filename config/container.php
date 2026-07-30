@@ -112,9 +112,6 @@ $containerBuilder->addDefinitions([
 
     \Psr\Http\Client\ClientInterface::class => create(\GuzzleHttp\Client::class),
 
-    // Remove when added to Bagatelle
-    \Psr\Http\Message\RequestFactoryInterface::class => create(\Nyholm\Psr7\Factory\Psr17Factory::class),
-
     \Google\Service\Sheets::class => function (\Symfony\Component\Config\FileLocatorInterface $locator) {
         $keyPath = $locator->locate($_ENV['ACTIVITY_BOOKS_KEY'] ?? '');
         $apiClient = new \Google\Client();
