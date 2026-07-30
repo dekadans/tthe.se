@@ -24,6 +24,7 @@
 
 {% macro role(role, attribute) %}
     <article>
+        {% if role[attribute] %}
         <hgroup>
             <h4>
                 {{ role[attribute].name }}
@@ -44,6 +45,7 @@
                 </p>
             {% endif %}
         </hgroup>
+        {% endif %}
 
         <div class="grid">
             <div>

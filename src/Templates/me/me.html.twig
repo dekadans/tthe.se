@@ -78,15 +78,6 @@
             {% for role in worksFor %}
                 {{ macros.role(role, "worksFor") }}
             {% endfor %}
-
-            <section>
-                <h4 id="events">Leaves &amp; Other Events</h4>
-                <ul>
-                {% for event in lifeEvent %}
-                    <li>{{ event.name }} for {{ macros.period(event.startDate, event.endDate) }}</li>
-                {% endfor %}
-                </ul>
-            </section>
         </section>
         <hr>
 
