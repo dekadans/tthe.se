@@ -1,0 +1,31 @@
+<section>
+    <h3 id="certifications">Professional Certifications</h3>
+
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>Issuer</th>
+            <th>Name</th>
+            <th>Issued</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cert in hasCertification %}
+            <tr>
+                <td>{{ cert.issuedBy.name }}</td>
+                <td>{{ cert.name }}</td>
+                <td>{{ cert.validFrom }}</td>
+                <td>
+                    {% if cert.expires and date(cert.expires) < date() %}
+                        🔴 <span data-tooltip="{{ "Expired " ~ cert.expires }}">Expired</span>
+                    {% else %}
+                        🟢 <span data-tooltip="{{ cert.expires ? "Expires " ~ cert.expires : "No expiration" }}">Active</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+<hr>

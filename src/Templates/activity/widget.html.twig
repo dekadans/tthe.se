@@ -1,0 +1,76 @@
+<article>
+    <header id="activityHeader">
+        <strong>Activity</strong>
+    </header>
+    <div role="group">
+        <button
+                class="{{ type !== 'film' ? 'secondary outline' : '' }}"
+                onclick="document.getElementById('activityHeader').setAttribute('aria-busy', 'true')"
+                hx-get="/activity/film/widget"
+                hx-trigger="click"
+                hx-target="#widget">
+            Movies
+        </button>
+        <button
+                class="{{ type !== 'book' ? 'secondary outline' : '' }}"
+                onclick="document.getElementById('activityHeader').setAttribute('aria-busy', 'true')"
+                hx-get="/activity/book/widget"
+                hx-trigger="click"
+                hx-target="#widget">
+            Books
+        </button>
+        <button
+                class="{{ type !== 'code' ? 'secondary outline' : '' }}"
+                onclick="document.getElementById('activityHeader').setAttribute('aria-busy', 'true')"
+                hx-get="/activity/code/widget"
+                hx-trigger="click"
+                hx-target="#widget">
+            Code
+        </button>
+    </div>
+    {% if list %}
+    <div>
+        <strong>
+            {{ list.name }}
+        </strong>
+
+        <aside>
+            <nav>
+                <ul>
+                    {% for item in list %}
+                        <li>
+                            <a href="{{ item.attributes['externalUri'] }}">
+                                <span title="{{ item.timestamp | date('Y-m-d') }}">{{ item.title }}</span>
+                            </a>
+                            {% if type === 'book' %}
+                                <small>{{ item.attributes['year'] }} - {{ item.attributes['author'] }}</small>
+                            {% elseif type === 'film' %}
+                                <small>
+                                    {{ item.attributes['year'] }}
+                                    {% if item.attributes['rating'] %}
+                                        -
+                                        {% for i in range(1, item.attributes['rating']) -%}
+                                            ★
+                                        {%- endfor %}
+                                        {%- if item.attributes['rating'] matches '/.5$/' -%}
+                                            ½
+                                        {% endif %}
+                                    {% endif %}
+                                </small>
+                            {% elseif type === 'code' %}
+                                <small>{{ item.attributes['description'] }} ({{ item.attributes['language'] }})</small>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </aside>
+    </div>
+    <footer>
+        <small>
+            <a href="/activity/{{ type }}">JSON</a>
+        </small>
+    </footer>
+    {% endif %}
+</article>
+

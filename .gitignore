@@ -1,7 +1,10 @@
-.idea
+# Bagatelle exclusions
+/vendor
+/node_modules
+/.idea
+/.vscode
+/var
 .DS_Store
-node_modules
-vendor
-generated
-google-api-key.json
-public/main.js
+Thumbs.db
+/.env
+/.php-cs-fixer.cache

@@ -8,4 +8,4 @@ $appRoot = dirname(__DIR__);
 
 require_once $appRoot . '/vendor/autoload.php';
 
-(new Application($appRoot)->http)();
+(new Application($appRoot)->console)();

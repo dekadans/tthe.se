@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Tomas Thelander{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <meta name="description" content="Integration Specialist and Software Developer based in Gothenburg, Sweden">
+    <meta property="og:title" content="Tomas Thelander">
+    <meta property="og:description" content="Integration Specialist and Software Developer based in Gothenburg, Sweden">
+    <meta property="og:image" content="/images/tthe.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js" integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V" crossorigin="anonymous"></script>
+    <style>
+        footer {
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong>tthe.se</strong></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="grid">
+            <div>
+                <h1>Tomas Thelander</h1>
+                <p>
+                    Welcome! <a href="/me">You can find my professional credentials here.</a>
+                </p>
+            </div>
+            <div id="widget">
+                {{ include('activity/widget.html.twig') }}
+            </div>
+        </section>
+    </main>
+    <footer class="container">
+        <small>tthe.se | © 2026 Tomas Thelander</small>
+    </footer>
+{% endblock %}

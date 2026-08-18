@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+
+{% block title %}tthe.se/me{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <style>
+        ul.clean-list > li {
+            list-style: none;
+        }
+        ul.clean-list {
+            padding-left: 0;
+        }
+        article {
+            margin: 1.5rem 0;
+        }
+        hr {
+            margin: 3rem 0;
+        }
+        @media print {
+            hr, .no-print {
+                display: none;
+            }
+            section, article {
+                break-inside: avoid;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <header class="container no-print">
+        <nav aria-label="breadcrumb">
+            <ul>
+                <li><a href="/">tthe.se</a></li>
+                <li><strong>CV</strong></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        {% import "me/macros.html.twig" as macros %}
+
+        <div class="grid">
+            <div>
+                <ul class="clean-list">
+                    <li><strong>Name:</strong> {{ givenName }} {{ familyName }}</li>
+                    <li><strong>Age:</strong> {{ date().diff(date(birthDate)) | date('%y') }}</li>
+                    <li><strong>Location:</strong> {{ address.addressLocality }}, {{ address.addressCountry.name }}</li>
+                    <li><strong>Languages:</strong> {{ knowsLanguage|map(l => l.name)|join(', ') }}</li>
+                    <li><strong>Web presence:</strong>
+                        <ul>
+                            {% for link in sameAs %}
+                                <li>{{ macros.url(link) }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    {{ description }}
+                </p>
+            </div>
+            <div>
+                <article style="margin: 0">
+                    <header><strong>What is this?</strong></header>
+                    <p>
+                        This is my master list of what I've done in my professional life, for my own convenience of having it all in one place.
+                    </p>
+                    <p class="no-print">
+                        This document is generated from <a href="/me.json">JSON-LD data</a>.
+                    </p>
+                </article>
+            </div>
+        </div>
+        <hr>
+
+        <section>
+            <h3 id="work-history">Work History</h3>
+            {% for role in worksFor %}
+                {{ macros.role(role, "worksFor") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        <section>
+            <h3 id="alma-mater">Almae Matres</h3>
+            {% for role in alumniOf %}
+                {{ macros.role(role, "alumniOf") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        <section>
+            <h3 id="volunteering">Volunteering</h3>
+            {% for role in affiliation %}
+                {{ macros.role(role, "affiliation") }}
+            {% endfor %}
+        </section>
+        <hr>
+
+        {{ include('me/certifications.html.twig') }}
+
+        {{ include('me/credentials.html.twig') }}
+    </main>
+
+{% endblock %}
