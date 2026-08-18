@@ -14,6 +14,7 @@ class BookTransformer implements ResourceTransformerInterface
             'object' => [
                 '@type' => 'Book',
                 'name' => $activity->title,
+                'sameAs' => $activity->attributes['externalUri'] ?? null,
                 'copyrightYear' => $activity->attributes['year'],
                 'author' => [
                     '@type' => 'Person',

@@ -53,7 +53,7 @@ class BookActivityReader implements ActivityReaderInterface
         $activity = [];
 
         for ($r = 0; isset($data[$r]); $r++) {
-            [$title, $author, $releasedYear, , $readDate] = $data->values[$r];
+            [$title, $author, $releasedYear, , $readDate, $olid] = $data->values[$r];
 
             try {
                 $activityTime = new \DateTimeImmutable($readDate);
@@ -69,6 +69,10 @@ class BookActivityReader implements ActivityReaderInterface
                 'author' => $author,
                 'year' => $releasedYear,
             ];
+
+            if ($olid) {
+                $attributes['externalUri'] = "https://openlibrary.org/works/$olid";
+            }
 
             $activity[] = new Activity(Type::BOOK, $title, $uri, $activityTime, $attributes);
         }
